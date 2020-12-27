@@ -1,0 +1,33 @@
+.aside {
+  background-color: #ffcfa2;
+  justify-content: center;
+}
+
+.nav {
+  padding: 15px;
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: #373535;
+    font-size: 26px;
+
+    &.active {
+      color: #6cdbdd;
+    }
+  }
+
+  &__item:hover .nav__link {
+    text-decoration: underline;
+    color: #000000;
+  }
+}
