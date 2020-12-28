@@ -1,9 +1,10 @@
 import React from 'react';
 
-const PostItem = ({message}) => {
+const PostItem = ({message, likesCount}) => {
     return (
         <div className="profile__posts-item">
-            {message}
+            <p>{message}</p>
+            <span>{`Количество лайков: ${likesCount}`}</span>
         </div>
     );
 };
