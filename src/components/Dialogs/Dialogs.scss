@@ -1,9 +1,4 @@
 .dialogs {
   display: grid;
-  grid-template-columns: 2fr 10fr;
-
-  &__list-link {
-    text-decoration: none;
-    font-size: 22px;
-  }
+  grid-template-columns: 1fr 5fr;
 }

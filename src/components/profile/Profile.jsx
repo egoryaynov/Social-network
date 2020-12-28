@@ -2,19 +2,14 @@ import React from 'react';
 
 import './Profile.scss';
 
-import image from '../../assets/profile-image.jpg';
 import Posts from "./Posts/Posts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-const Profile = () => {
+const Profile = ({dataPosts}) => {
     return (
         <div className='profile'>
-            <img className='profile__image' src={image} alt="Profile"/>
-
-            <div className="profile__content">
-                <div>ava + description</div>
-                
-                <Posts/>
-            </div>
+            <ProfileInfo/>
+            <Posts dataPosts={dataPosts}/>
         </div>
     );
 };

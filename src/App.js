@@ -8,6 +8,8 @@ import Settings from "./components/Settings/Settings";
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
+// IMPORT BUSINESS LOGIC
+import {dataDialogs, dataMessages, dataPosts} from "./index";
 
 function App() {
     return (
@@ -16,8 +18,9 @@ function App() {
                 <Header/>
                 <div className="content-wrapper">
                     <Aside/>
-                    <Route path='/dialogs' component={Dialogs}/>
-                    <Route path='/profile' component={Profile}/>
+                    <Route path='/dialogs'
+                           render={() => <Dialogs dataDialogs={dataDialogs} dataMessages={dataMessages}/>}/>
+                    <Route path='/profile' render={() => <Profile dataPosts={dataPosts}/>}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
