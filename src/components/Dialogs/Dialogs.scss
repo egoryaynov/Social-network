@@ -1,0 +1,9 @@
+.dialogs {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+
+  &__list-link {
+    text-decoration: none;
+    font-size: 22px;
+  }
+}
