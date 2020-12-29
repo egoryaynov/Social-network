@@ -2,11 +2,14 @@ import React from 'react';
 
 import './PostItem.scss';
 
+import avatar from '../../../../assets/posts-avatar.jpg';
+
 const PostItem = ({message, likesCount}) => {
     return (
         <div className="profile__posts-item">
+            <img className="profile__posts-avatar" src={avatar} alt="avatar"/>
             <p>{message}</p>
-            <span>{`Количество лайков: ${likesCount}`}</span>
+            <span className="profile__posts-likes">{`Количество лайков: ${likesCount}`}</span>
         </div>
     );
 };

@@ -5,25 +5,24 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
+import Friends from "./components/Friends/Friends";
 
 import {BrowserRouter as Router, Route} from "react-router-dom";
 
-// IMPORT BUSINESS LOGIC
-import {dataDialogs, dataMessages, dataPosts} from "./index";
-
-function App() {
+function App({state}) {
     return (
         <Router>
             <div className='app-wrapper'>
                 <Header/>
                 <div className="content-wrapper">
-                    <Aside/>
+                    <Aside state={state.sideBar}/>
                     <Route path='/dialogs'
-                           render={() => <Dialogs dataDialogs={dataDialogs} dataMessages={dataMessages}/>}/>
-                    <Route path='/profile' render={() => <Profile dataPosts={dataPosts}/>}/>
+                           render={() => <Dialogs state={state.dialogsPage}/>}/>
+                    <Route path='/profile' render={() => <Profile state={state.profilePage}/>}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>
+                    <Route path='/friends' component={Friends}/>
                 </div>
             </div>
         </Router>

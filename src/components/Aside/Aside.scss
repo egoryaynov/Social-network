@@ -12,7 +12,7 @@
 
   &__link {
     text-decoration: none;
-    color: #373535;
+    color: #545151;
     font-size: 26px;
 
     &.active {
@@ -21,6 +21,6 @@
   }
 
   &__item:hover .nav__link {
-    text-decoration: underline;
+    color: #209699;
   }
 }
