@@ -1,3 +1,5 @@
+import {rerenderApp} from "../render";
+
 let state = {
     dialogsPage: {
         messages: [
@@ -21,7 +23,8 @@ let state = {
             {id: 3, message: 'It is post number 3', likesCount: '24'},
             {id: 4, message: 'It is post number 4', likesCount: '2'},
             {id: 5, message: 'It is post number 5', likesCount: '55'},
-        ]
+        ],
+        postText: ''
     },
     sideBar: {
         friends: [
@@ -33,6 +36,23 @@ let state = {
             {id: 6, name: 'Dmitry'},
         ]
     }
+}
+
+export let addPost = () => {
+    let newPost = {
+        id: 6,
+        message: state.profilePage.postText,
+        likesCount: 0
+    };
+    state.profilePage.posts.push(newPost);
+
+    rerenderApp(state, addPost, updatePostText);
+}
+
+export let updatePostText = (newPostText) => {
+    state.profilePage.postText = newPostText;
+
+    rerenderApp(state, addPost, updatePostText);
 }
 
 export default state;
