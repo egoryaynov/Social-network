@@ -9,7 +9,7 @@ import Friends from "./components/Friends/Friends";
 
 import {Route} from 'react-router-dom';
 
-function App({state, addPost, updatePostText}) {
+function App({state, addPost, updatePostText, addMessage, updateMessage}) {
     return (
         <div className='app-wrapper'>
             <Header/>
@@ -17,8 +17,11 @@ function App({state, addPost, updatePostText}) {
                 <Aside state={state.sideBar}/>
                 <Route path='/dialogs'
                        render={() =>
-                           <Dialogs state={state.dialogsPage}/>}
-                />
+                           <Dialogs state={state.dialogsPage}
+                                    addMessage={addMessage}
+                                    updateMessage={updateMessage}
+                           />
+                       }/>
                 <Route path='/profile' render={() =>
                     <Profile state={state.profilePage} addPost={addPost} updatePostText={updatePostText}/>}
                 />

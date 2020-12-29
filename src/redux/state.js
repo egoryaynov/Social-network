@@ -1,4 +1,6 @@
-import {rerenderApp} from "../render";
+let rerenderApp = () => {
+    console.log('render-app');
+};
 
 let state = {
     dialogsPage: {
@@ -14,7 +16,8 @@ let state = {
             {id: 2, name: 'Denis'},
             {id: 3, name: 'Ivan'},
             {id: 4, name: 'Stanislav'},
-        ]
+        ],
+        messageText: ''
     },
     profilePage: {
         posts: [
@@ -38,7 +41,7 @@ let state = {
     }
 }
 
-export let addPost = () => {
+export const addPost = () => {
     let newPost = {
         id: 6,
         message: state.profilePage.postText,
@@ -46,13 +49,31 @@ export let addPost = () => {
     };
     state.profilePage.posts.push(newPost);
 
-    rerenderApp(state, addPost, updatePostText);
+    rerenderApp();
 }
-
-export let updatePostText = (newPostText) => {
+export const updatePostText = (newPostText) => {
     state.profilePage.postText = newPostText;
 
-    rerenderApp(state, addPost, updatePostText);
+    rerenderApp();
+}
+
+export const addMessage = () => {
+    let newMessage = {
+        id: 6,
+        text: state.dialogsPage.messageText
+    };
+    state.dialogsPage.messages.push(newMessage);
+
+    rerenderApp();
+}
+export const updateMessage = (newMessage) => {
+    state.dialogsPage.messageText = newMessage;
+
+    rerenderApp();
+}
+
+export const subscribe = (observer) => {
+    rerenderApp = observer;
 }
 
 export default state;

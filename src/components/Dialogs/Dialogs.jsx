@@ -5,7 +5,17 @@ import './Dialogs.scss';
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
 
-const Dialogs = ({state}) => {
+const Dialogs = ({state, addMessage, updateMessage}) => {
+    let textareaEl = React.createRef();
+
+    let textChange = () => {
+        updateMessage(textareaEl.current.value);
+    }
+    let buttonClick = () => {
+        addMessage(textareaEl.current.value);
+        updateMessage('')
+    }
+
     return (
         <div className='dialogs'>
             <div className="dialogs__list-wrapper">
@@ -22,8 +32,8 @@ const Dialogs = ({state}) => {
                     )}
                 </ul>
                 <div className="dialogs__messages-form">
-                    <textarea></textarea>
-                    <button>Отправить</button>
+                    <textarea ref={textareaEl} value={state.messageText} onChange={textChange}/>
+                    <button onClick={buttonClick}>Отправить</button>
                 </div>
             </div>
         </div>
