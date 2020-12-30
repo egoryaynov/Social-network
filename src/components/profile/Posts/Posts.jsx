@@ -2,30 +2,21 @@ import React from 'react';
 
 import './Posts.scss';
 import PostItem from "./PostItem/PostItem";
+import {addPostActionCreator, updatePostTextActionCreator} from "../../../redux/profileReducer";
 
 const Posts = ({state, dispatch}) => {
-    let textareaEl = React.createRef();
-
     let clickButton = () => {
-        dispatch({
-            type: 'ADD-POST',
-        })
-        dispatch({
-            type: 'UPDATE-POST-TEXT',
-            newPostText: ''
-        })
+        dispatch(addPostActionCreator());
+        dispatch(updatePostTextActionCreator(''));
     }
-    let changePost = () => {
-        dispatch({
-            type: 'UPDATE-POST-TEXT',
-            newPostText: textareaEl.current.value
-        })
+    let changePost = (event) => {
+        dispatch(updatePostTextActionCreator(event.target.value));
     }
 
     return (
         <div className='profile__posts'>
             <div className="profile__posts-add">
-                <textarea ref={textareaEl} value={state.postText} onChange={changePost}/>
+                <textarea value={state.postText} onChange={changePost}/>
                 <button onClick={clickButton}>Add post</button>
             </div>
 

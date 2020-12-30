@@ -58,10 +58,8 @@ let store = {
     }
 }
 
-export const addPostActionCreator = () => ({type: ADD_POST});
-export const updatePostTextActionCreator = (text) => ({type: UPDATE_POST_TEXT, newPostText: text});
 
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
-export const updateMessageActionCreator = (message) => ({type: UPDATE_MESSAGE, newMessage: message});
+
+
 
 export default store;

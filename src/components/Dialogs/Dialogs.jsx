@@ -4,7 +4,8 @@ import './Dialogs.scss';
 
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
-import {addMessageActionCreator, updateMessageActionCreator} from "../../redux/state";
+
+import {addMessageActionCreator, updateMessageActionCreator} from "../../redux/dialogsReducer";
 
 const Dialogs = ({state, dispatch}) => {
     let textChange = (event) => {
