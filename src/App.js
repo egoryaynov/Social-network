@@ -15,16 +15,18 @@ function App({state, addPost, updatePostText, addMessage, updateMessage}) {
             <Header/>
             <div className="content-wrapper">
                 <Aside state={state.sideBar}/>
-                <Route path='/dialogs'
-                       render={() =>
-                           <Dialogs state={state.dialogsPage}
-                                    addMessage={addMessage}
-                                    updateMessage={updateMessage}
-                           />
-                       }/>
+                <Route path='/dialogs' render={() =>
+                    <Dialogs state={state.dialogsPage}
+                             addMessage={addMessage}
+                             updateMessage={updateMessage}
+                    />
+                }/>
                 <Route path='/profile' render={() =>
-                    <Profile state={state.profilePage} addPost={addPost} updatePostText={updatePostText}/>}
-                />
+                    <Profile state={state.profilePage}
+                             addPost={addPost}
+                             updatePostText={updatePostText}
+                    />
+                }/>
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>
                 <Route path='/settings' component={Settings}/>

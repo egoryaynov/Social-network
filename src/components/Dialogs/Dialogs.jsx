@@ -9,6 +9,7 @@ const Dialogs = ({state, addMessage, updateMessage}) => {
     let textareaEl = React.createRef();
 
     let textChange = () => {
+        debugger
         updateMessage(textareaEl.current.value);
     }
     let buttonClick = () => {
