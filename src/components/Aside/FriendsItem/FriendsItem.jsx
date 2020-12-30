@@ -1,11 +1,11 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 
-import './Friends.scss';
+import './FriendsItem.scss';
 
 import friendAvatar from '../../../assets/friend-avatar.jpg';
 
-const Friends = ({state}) => {
+const FriendsItem = ({state}) => {
     return (
         <div className='aside__friends'>
             <NavLink className='aside__friends-title' to='/friends'>Friends</NavLink>
@@ -26,4 +26,4 @@ const Friends = ({state}) => {
     );
 };
 
-export default Friends;
+export default FriendsItem;

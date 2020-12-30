@@ -2,7 +2,7 @@ import React from 'react';
 import './Aside.scss';
 
 import NavListItem from "./NavListItem/NavListItem";
-import Friends from "./FriendsItem/Friends";
+import FriendsItem from "./FriendsItem/FriendsItem.jsx";
 
 const Aside = ({state}) => {
 
@@ -17,7 +17,7 @@ const Aside = ({state}) => {
                     <NavListItem link='/settings'/>
                 </ul>
             </nav>
-            <Friends state={state.friends}/>
+            <FriendsItem state={state.friends}/>
         </aside>
     );
 };

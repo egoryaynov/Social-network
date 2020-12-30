@@ -2,7 +2,7 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 
 const NavListItem = ({link, itemName}) => {
-    let defaultTitle = link.substring(1, 2).toUpperCase() + link.substring(2);
+    let defaultTitle = link[1].toUpperCase() + link.substring(2);
     let title = itemName || defaultTitle;
 
     return (

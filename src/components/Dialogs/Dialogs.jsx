@@ -4,24 +4,15 @@ import './Dialogs.scss';
 
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
+import {addMessageActionCreator, updateMessageActionCreator} from "../../redux/state";
 
 const Dialogs = ({state, dispatch}) => {
-    let textareaEl = React.createRef();
-
-    let textChange = () => {
-        dispatch({
-            type: 'UPDATE-MESSAGE',
-            newMessage: textareaEl.current.value
-        })
+    let textChange = (event) => {
+        dispatch(updateMessageActionCreator(event.target.value));
     }
     let buttonClick = () => {
-        dispatch({
-            type: 'ADD-MESSAGE'
-        })
-        dispatch({
-            type: 'UPDATE-MESSAGE',
-            newMessage: ''
-        })
+        dispatch(addMessageActionCreator())
+        dispatch(updateMessageActionCreator(''));
     }
 
     return (
@@ -40,7 +31,10 @@ const Dialogs = ({state, dispatch}) => {
                     )}
                 </ul>
                 <div className="dialogs__messages-form">
-                    <textarea ref={textareaEl} value={state.messageText} onChange={textChange}/>
+                    <textarea value={state.messageText}
+                              onChange={textChange}
+                              placeholder='Введите сообщение'
+                    />
                     <button onClick={buttonClick}>Отправить</button>
                 </div>
             </div>

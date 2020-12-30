@@ -6,7 +6,7 @@ import './index.scss';
 import store from "./redux/state";
 import App from "./App";
 
-export let rerenderApp = () => {
+let rerenderApp = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
