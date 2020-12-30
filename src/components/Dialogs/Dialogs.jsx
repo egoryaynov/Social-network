@@ -5,16 +5,23 @@ import './Dialogs.scss';
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
 
-const Dialogs = ({state, addMessage, updateMessage}) => {
+const Dialogs = ({state, dispatch}) => {
     let textareaEl = React.createRef();
 
     let textChange = () => {
-        debugger
-        updateMessage(textareaEl.current.value);
+        dispatch({
+            type: 'UPDATE-MESSAGE',
+            newMessage: textareaEl.current.value
+        })
     }
     let buttonClick = () => {
-        addMessage(textareaEl.current.value);
-        updateMessage('')
+        dispatch({
+            type: 'ADD-MESSAGE'
+        })
+        dispatch({
+            type: 'UPDATE-MESSAGE',
+            newMessage: ''
+        })
     }
 
     return (

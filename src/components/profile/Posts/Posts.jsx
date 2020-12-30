@@ -3,15 +3,23 @@ import React from 'react';
 import './Posts.scss';
 import PostItem from "./PostItem/PostItem";
 
-const Posts = ({state, addPost, updatePostText}) => {
+const Posts = ({state, dispatch}) => {
     let textareaEl = React.createRef();
 
     let clickButton = () => {
-        addPost();
-        updatePostText('');
+        dispatch({
+            type: 'ADD-POST',
+        })
+        dispatch({
+            type: 'UPDATE-POST-TEXT',
+            newPostText: ''
+        })
     }
     let changePost = () => {
-        updatePostText(textareaEl.current.value);
+        dispatch({
+            type: 'UPDATE-POST-TEXT',
+            newPostText: textareaEl.current.value
+        })
     }
 
     return (

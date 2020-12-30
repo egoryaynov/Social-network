@@ -5,11 +5,11 @@ import './Profile.scss';
 import Posts from "./Posts/Posts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
-const Profile = ({state, addPost, updatePostText}) => {
+const Profile = ({state, dispatch}) => {
     return (
         <div className='profile'>
             <ProfileInfo/>
-            <Posts state={state} addPost={addPost} updatePostText={updatePostText}/>
+            <Posts state={state} dispatch={dispatch}/>
         </div>
     );
 };
