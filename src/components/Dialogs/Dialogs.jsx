@@ -5,15 +5,12 @@ import './Dialogs.scss';
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
 
-import {addMessageActionCreator, updateMessageActionCreator} from "../../redux/dialogsReducer";
-
-const Dialogs = ({state, dispatch}) => {
-    let textChange = (event) => {
-        dispatch(updateMessageActionCreator(event.target.value));
+const Dialogs = ({state, changeMessage, buttonClick}) => {
+    let onChange = (event) => {
+        changeMessage(event.target.value);
     }
-    let buttonClick = () => {
-        dispatch(addMessageActionCreator())
-        dispatch(updateMessageActionCreator(''));
+    let onButtonClick = () => {
+        buttonClick();
     }
 
     return (
@@ -33,10 +30,10 @@ const Dialogs = ({state, dispatch}) => {
                 </ul>
                 <div className="dialogs__messages-form">
                     <textarea value={state.messageText}
-                              onChange={textChange}
+                              onChange={onChange}
                               placeholder='Введите сообщение'
                     />
-                    <button onClick={buttonClick}>Отправить</button>
+                    <button onClick={onButtonClick}>Отправить</button>
                 </div>
             </div>
         </div>

@@ -2,14 +2,14 @@ import React from 'react';
 
 import './Profile.scss';
 
-import Posts from "./Posts/Posts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import PostsContainer from "./PostsContainer";
 
-const Profile = ({state, dispatch}) => {
+const Profile = ({store}) => {
     return (
         <div className='profile'>
             <ProfileInfo/>
-            <Posts state={state} dispatch={dispatch}/>
+            <PostsContainer store={store}/>
         </div>
     );
 };

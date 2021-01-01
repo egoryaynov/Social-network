@@ -1,29 +1,26 @@
+import {Route} from 'react-router-dom';
+
 import Header from "./components/Header/Header";
 import Aside from "./components/Aside/Aside";
-import Profile from "./components/profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Friends from "./components/Friends/Friends";
 
-import {Route} from 'react-router-dom';
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import Profile from "./components/profile/Profile";
 
-function App({state, dispatch}) {
+function App({store}) {
     return (
         <div className='app-wrapper'>
             <Header/>
             <div className="content-wrapper">
-                <Aside state={state.sideBar}/>
+                <Aside state={store.getState().sideBar}/>
                 <Route path='/dialogs' render={() =>
-                    <Dialogs state={state.dialogsPage}
-                             dispatch={dispatch}
-                    />
+                    <DialogsContainer store={store}/>
                 }/>
                 <Route path='/profile' render={() =>
-                    <Profile state={state.profilePage}
-                             dispatch={dispatch}
-                    />
+                    <Profile store={store}/>
                 }/>
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>
