@@ -10,17 +10,17 @@ import Friends from "./components/Friends/Friends";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Profile from "./components/profile/Profile";
 
-function App({store}) {
+function App() {
     return (
         <div className='app-wrapper'>
             <Header/>
             <div className="content-wrapper">
-                <Aside state={store.getState().sideBar}/>
+                <Aside/>
                 <Route path='/dialogs' render={() =>
-                    <DialogsContainer store={store}/>
+                    <DialogsContainer/>
                 }/>
                 <Route path='/profile' render={() =>
-                    <Profile store={store}/>
+                    <Profile/>
                 }/>
                 <Route path='/news' component={News}/>
                 <Route path='/music' component={Music}/>

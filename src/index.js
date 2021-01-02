@@ -3,16 +3,18 @@ import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import './index.scss';
 
-//import store from "./redux/store";
 import App from "./App";
 
 import store from './redux/redux-store';
+import StoreContext from "./StoreContext";
 
 let rerenderApp = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
-                <App store={store}/>
+                <StoreContext.Provider value={store}>
+                    <App/>
+                </StoreContext.Provider>
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')

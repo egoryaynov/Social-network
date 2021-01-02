@@ -5,11 +5,11 @@ import './Profile.scss';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsContainer from "./PostsContainer";
 
-const Profile = ({store}) => {
+const Profile = () => {
     return (
         <div className='profile'>
             <ProfileInfo/>
-            <PostsContainer store={store}/>
+            <PostsContainer/>
         </div>
     );
 };
