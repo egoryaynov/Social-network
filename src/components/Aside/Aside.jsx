@@ -2,8 +2,7 @@ import React from 'react';
 import './Aside.scss';
 
 import NavListItem from "./NavListItem/NavListItem";
-import FriendsItem from "./FriendsItem/FriendsItem.jsx";
-import StoreContext from "../../StoreContext";
+import FriendsItemContainer from "./FriendsItemContainer";
 
 const Aside = () => {
     return (
@@ -17,15 +16,7 @@ const Aside = () => {
                     <NavListItem link='/settings'/>
                 </ul>
             </nav>
-            <StoreContext.Consumer>
-                {store => {
-                    let state = store.getState();
-
-                    return (
-                        <FriendsItem state={state.sideBar.friends}/>
-                    )
-                }}
-            </StoreContext.Consumer>
+            <FriendsItemContainer/>
         </aside>
     );
 };
