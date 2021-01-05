@@ -16,7 +16,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         buttonClick: () => {
             dispatch(addPostActionCreator());
-            dispatch(updatePostTextActionCreator(''));
         }
     }
 }

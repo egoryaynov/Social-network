@@ -1,4 +1,3 @@
-import React from 'react';
 import Dialogs from "./Dialogs";
 
 import {addMessageActionCreator, updateMessageActionCreator} from "../../redux/dialogsReducer";
@@ -15,7 +14,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(updateMessageActionCreator(text));
         },
         buttonClick: () => {
-            dispatch(updateMessageActionCreator(''));
             dispatch(addMessageActionCreator())
         }
     }
