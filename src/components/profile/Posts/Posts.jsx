@@ -20,7 +20,7 @@ const Posts = ({state, changePost, buttonClick}) => {
 
             <div className='profile__posts-wrapper'>
                 {state.posts.map(post =>
-                    <PostItem message={post.message} likesCount={post.likesCount}/>
+                    <PostItem key={post.id} message={post.message} likesCount={post.likesCount}/>
                 )}
             </div>
         </div>

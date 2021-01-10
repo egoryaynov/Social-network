@@ -18,14 +18,14 @@ const Dialogs = ({state, changeMessage, buttonClick}) => {
             <div className="dialogs__list-wrapper">
                 <ul className="dialogs__list">
                     {state.dialogs.map(user =>
-                        <DialogItem name={user.name} id={user.id}/>
+                        <DialogItem key={user.id} name={user.name} id={user.id}/>
                     )}
                 </ul>
             </div>
             <div className="dialogs__messages">
                 <ul className="dialogs__messages-list">
                     {state.messages.map(message =>
-                        <MessageItem text={message.text}/>
+                        <MessageItem key={message.id} text={message.text}/>
                     )}
                 </ul>
                 <div className="dialogs__messages-form">

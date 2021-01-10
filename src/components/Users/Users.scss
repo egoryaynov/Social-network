@@ -1,0 +1,36 @@
+.users {
+  &__item {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-gap: 15px;
+    padding-bottom: 40px;
+  }
+
+  &__avatar {
+    width: 300px;
+  }
+
+  &__description {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+
+    &-main {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+    }
+  }
+
+  &__status {
+    align-self: end;
+  }
+
+  &__location {
+    text-align: right;
+    align-self: center;
+
+    span {
+      display: block;
+    }
+  }
+}
