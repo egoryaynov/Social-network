@@ -6,7 +6,6 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
-
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Profile from "./components/profile/Profile";
 
