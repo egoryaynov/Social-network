@@ -1,5 +1,5 @@
-export const ADD_MESSAGE = 'ADD-MESSAGE';
-export const UPDATE_MESSAGE = 'UPDATE-MESSAGE';
+export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 
 const initialState = {
     messages: [

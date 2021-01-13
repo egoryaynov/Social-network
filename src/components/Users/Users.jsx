@@ -1,25 +1,34 @@
 import React from 'react';
-import axios from "axios";
-
-import {NavLink} from "react-router-dom";
 
 import './Users.scss';
-import defaultUserAvatar from '../../assets/default-user-avatar.jpg';
+import {NavLink} from "react-router-dom";
 
-const Users = ({users, followToggle, setUsers}) => {
-    if (users.length === 0) {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response => {
-                setUsers(response.data.items)
-            })
+import defaultUserAvatar from "../../assets/default-user-avatar.jpg";
+
+const Users = ({users, totalUsersCount, pageSize, currentPage, onChangePage, followToggle}) => {
+    let pagesCount = Math.ceil(totalUsersCount / pageSize)
+
+    let pages = []
+    for (let i = 1; i <= 30; i++) {
+        pages.push(i)
     }
 
     return (
         <div className='users'>
+            <div className="users__pagination pagination">
+                {pages.map((page) => (
+                    <span
+                        className={currentPage === page
+                            ? 'pagination__item pagination__item--active'
+                            : 'pagination__item'}
+                        onClick={() => onChangePage(page)}>{page}</span>
+                ))}
+            </div>
+
             <ul className="users__list">
                 {users.map(user => {
                     return (
-                        <li className='users__item'>
+                        <li key={user.id} className='users__item'>
                             <div>
                                 <NavLink to={`/users/${user.id}`}>
                                     <div className="users__img-wrapper">
@@ -28,7 +37,8 @@ const Users = ({users, followToggle, setUsers}) => {
                                              alt={`${user.name} avatar`}/>
                                     </div>
                                 </NavLink>
-                                <button className="users__follow-btn" onClick={() => followToggle(user.id)}>
+                                <button className="users__follow-btn"
+                                        onClick={() => followToggle(user.id)}>
                                     {user.followed ? 'unfollow' : 'follow'}
                                 </button>
                             </div>
@@ -46,8 +56,9 @@ const Users = ({users, followToggle, setUsers}) => {
                     )
                 })}
             </ul>
+
         </div>
-    );
+    )
 };
 
 export default Users;

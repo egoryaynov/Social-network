@@ -1,5 +1,5 @@
-export const ADD_POST = 'ADD-POST';
-export const UPDATE_POST_TEXT = 'UPDATE-POST-TEXT';
+export const ADD_POST = 'ADD_POST';
+export const UPDATE_POST_TEXT = 'UPDATE_POST_TEXT';
 
 const initialState = {
     posts: [
