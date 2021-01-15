@@ -1,6 +1,6 @@
 import {Route} from 'react-router-dom';
 
-import Header from "./components/Header/Header";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import Aside from "./components/Aside/Aside";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
@@ -12,7 +12,7 @@ import ProfileContainer from "./components/profile/ProfileContainer";
 function App() {
     return (
         <div className='app-wrapper'>
-            <Header/>
+            <HeaderContainer/>
             <div className="content-wrapper">
                 <Aside/>
                 <Route path='/dialogs' render={() =>
