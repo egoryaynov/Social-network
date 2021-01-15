@@ -4,13 +4,13 @@ import {connect} from "react-redux";
 import {setUserProfile} from "../../redux/profileReducer";
 import Preloader from "../common/Preloader";
 import {withRouter} from "react-router-dom";
-import {getUserProfile} from "../../api/getUsers";
+import {usersAPI} from "../../api/getUsers";
 
 class ProfileContainer extends Component {
     componentDidMount() {
         let userID = this.props.match.params.userID || 2
 
-        getUserProfile(userID)
+        usersAPI.getUserProfile(userID)
             .then(data => {
                 this.props.setUserProfile(data)
             })
