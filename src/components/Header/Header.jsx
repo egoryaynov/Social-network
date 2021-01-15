@@ -15,7 +15,7 @@ const Header = ({isAuth, login}) => {
             </div>
             <div className="header__login">
                 {isAuth
-                    ? <span className='header__login-success'>{`You login as ${login}`}</span>
+                    ? <span className='header__login--success'>{`You login as ${login}`}</span>
                     : <NavLink to='/login'>Login</NavLink>}
             </div>
         </header>

@@ -4,6 +4,7 @@ import './Users.scss';
 import {NavLink} from "react-router-dom";
 
 import defaultUserAvatar from "../../assets/default-user-avatar.jpg";
+import {deleteFollow, postFollow} from "../../api/getUsers";
 
 const Users = ({users, totalUsersCount, pageSize, currentPage, onChangePage, followToggle}) => {
     let pagesCount = Math.ceil(totalUsersCount / pageSize)
@@ -11,6 +12,20 @@ const Users = ({users, totalUsersCount, pageSize, currentPage, onChangePage, fol
     let pages = []
     for (let i = 1; i <= 30; i++) {
         pages.push(i)
+    }
+
+    let onFollow = (userID, isFollow) => {
+        if (isFollow) {
+            deleteFollow(userID)
+                .then(() => {
+                    followToggle(userID)
+                })
+        } else {
+            postFollow(userID)
+                .then(() => {
+                    followToggle(userID)
+                })
+        }
     }
 
     return (
@@ -38,7 +53,7 @@ const Users = ({users, totalUsersCount, pageSize, currentPage, onChangePage, fol
                                     </div>
                                 </NavLink>
                                 <button className="users__follow-btn"
-                                        onClick={() => followToggle(user.id)}>
+                                        onClick={() => onFollow(user.id, user.followed)}>
                                     {user.followed ? 'unfollow' : 'follow'}
                                 </button>
                             </div>
