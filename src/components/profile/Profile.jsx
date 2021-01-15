@@ -5,10 +5,10 @@ import './Profile.scss';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsContainer from "./PostsContainer";
 
-const Profile = () => {
+const Profile = ({profile}) => {
     return (
         <div className='profile'>
-            <ProfileInfo/>
+            <ProfileInfo profile={profile}/>
             <PostsContainer/>
         </div>
     );

@@ -1,5 +1,23 @@
 .profile {
   &__image {
-    width: 100%;
+    width: 500px;
+  }
+
+  &__contacts {
+    &-item {
+      display: block;
+    }
+  }
+
+  &__job {
+    &-status {
+      &--true {
+        color: green;
+      }
+
+      &--false {
+        color: red;
+      }
+    }
   }
 }

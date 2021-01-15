@@ -30,7 +30,7 @@ const Users = ({users, totalUsersCount, pageSize, currentPage, onChangePage, fol
                     return (
                         <li key={user.id} className='users__item'>
                             <div>
-                                <NavLink to={`/users/${user.id}`}>
+                                <NavLink to={`/profile/${user.id}`}>
                                     <div className="users__img-wrapper">
                                         <img className="users__avatar"
                                              src={user.photos.small === null ? defaultUserAvatar : user.photos.small}
