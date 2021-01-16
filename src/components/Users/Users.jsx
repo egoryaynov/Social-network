@@ -6,7 +6,11 @@ import {NavLink} from "react-router-dom";
 import defaultUserAvatar from "../../assets/default-user-avatar.jpg";
 import {usersAPI} from "../../api/getUsers";
 
-const Users = ({users, totalUsersCount, pageSize, currentPage, onChangePage, followToggle}) => {
+const Users = ({
+                   users, totalUsersCount, pageSize,
+                   currentPage, onChangePage, followToggle,
+                   isFollowsFetching, toggleFollowFetching
+               }) => {
     //let pagesCount = Math.ceil(totalUsersCount / pageSize)
     let pages = []
     for (let i = 1; i <= 30; i++) {
@@ -14,15 +18,19 @@ const Users = ({users, totalUsersCount, pageSize, currentPage, onChangePage, fol
     }
 
     let onFollow = (userID, isFollow) => {
+        toggleFollowFetching(true, userID)
+
         if (isFollow) {
             usersAPI.deleteFollow(userID)
                 .then(() => {
                     followToggle(userID)
+                    toggleFollowFetching(false, userID)
                 })
         } else {
             usersAPI.postFollow(userID)
                 .then(() => {
                     followToggle(userID)
+                    toggleFollowFetching(false, userID)
                 })
         }
     }
@@ -51,7 +59,8 @@ const Users = ({users, totalUsersCount, pageSize, currentPage, onChangePage, fol
                                              alt={`${user.name} avatar`}/>
                                     </div>
                                 </NavLink>
-                                <button className="users__follow-btn"
+                                <button disabled={isFollowsFetching.some(id => id === user.id)}
+                                        className="users__follow-btn"
                                         onClick={() => onFollow(user.id, user.followed)}>
                                     {user.followed ? 'unfollow' : 'follow'}
                                 </button>
