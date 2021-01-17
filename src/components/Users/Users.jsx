@@ -4,12 +4,11 @@ import './Users.scss';
 import {NavLink} from "react-router-dom";
 
 import defaultUserAvatar from "../../assets/default-user-avatar.jpg";
-import {usersAPI} from "../../api/getUsers";
 
 const Users = ({
                    users, totalUsersCount, pageSize,
-                   currentPage, onChangePage, followToggle,
-                   isFollowsFetching, toggleFollowFetching
+                   currentPage, onChangePage, isFollowsFetching,
+                   onFollowUser
                }) => {
     //let pagesCount = Math.ceil(totalUsersCount / pageSize)
     let pages = []
@@ -18,21 +17,7 @@ const Users = ({
     }
 
     let onFollow = (userID, isFollow) => {
-        toggleFollowFetching(true, userID)
-
-        if (isFollow) {
-            usersAPI.deleteFollow(userID)
-                .then(() => {
-                    followToggle(userID)
-                    toggleFollowFetching(false, userID)
-                })
-        } else {
-            usersAPI.postFollow(userID)
-                .then(() => {
-                    followToggle(userID)
-                    toggleFollowFetching(false, userID)
-                })
-        }
+        onFollowUser(userID, isFollow)
     }
 
     return (
