@@ -4,8 +4,9 @@ import './Dialogs.scss';
 
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
+import {Redirect} from "react-router-dom";
 
-const Dialogs = ({state, changeMessage, buttonClick}) => {
+const Dialogs = ({state, changeMessage, buttonClick, isAuth}) => {
     let onChange = (event) => {
         changeMessage(event.target.value);
     }
@@ -13,6 +14,8 @@ const Dialogs = ({state, changeMessage, buttonClick}) => {
         buttonClick();
     }
 
+    if (!isAuth) return <Redirect to='/login'/>
+    
     return (
         <div className='dialogs'>
             <div className="dialogs__list-wrapper">
