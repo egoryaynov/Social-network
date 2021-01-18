@@ -31,7 +31,9 @@ const ProfileInfo = ({profile}) => {
                 <h2>Интересуют ли вакансии по работе?</h2>
                 <div className="profile__job-status">
                     <span
-                        className={`${profile.lookingForAJob ? 'profile__job-status--true' : 'profile__job-status--false'}`}>
+                        className={`${profile.lookingForAJob
+                            ? 'profile__job-status--true'
+                            : 'profile__job-status--false'}`}>
                         <b>{profile.lookingForAJob ? 'Да!' : 'Нет :('}</b>
                     </span>
                 </div>

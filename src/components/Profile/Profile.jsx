@@ -3,7 +3,7 @@ import React from 'react';
 import './Profile.scss';
 
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import PostsContainer from "./PostsContainer";
+import PostsContainer from "./Posts/PostsContainer";
 
 const Profile = ({profile}) => {
     return (
