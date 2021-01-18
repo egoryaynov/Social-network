@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './ProfileInfo.scss';
+import ProfileStatus from '../ProfileStatus/ProfileStatus';
 
 const ProfileInfo = ({profile}) => {
     let contacts = [];
@@ -21,7 +22,8 @@ const ProfileInfo = ({profile}) => {
             }
             <h3>{profile.fullName}</h3>
 
-            <div className="profile__description">{`Обо мне: ${profile.aboutMe}`}</div>
+            <ProfileStatus status={profile.aboutMe}/>
+
             <h2>Я в соц. сетях:</h2>
             <div className="profile__contacts">
                 {contacts.map((contact) => <a href={`https://${contact.link}`}
