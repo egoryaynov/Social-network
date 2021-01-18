@@ -3,7 +3,7 @@ import React from 'react';
 import './ProfileInfo.scss';
 import ProfileStatus from '../ProfileStatus/ProfileStatus';
 
-const ProfileInfo = ({profile}) => {
+const ProfileInfo = ({profile, status, updateStatus}) => {
     let contacts = [];
     for (let social in profile.contacts) {
         if (profile.contacts[social] !== null) {
@@ -22,7 +22,7 @@ const ProfileInfo = ({profile}) => {
             }
             <h3>{profile.fullName}</h3>
 
-            <ProfileStatus status={profile.aboutMe}/>
+            <ProfileStatus status={status} updateStatus={updateStatus}/>
 
             <h2>Я в соц. сетях:</h2>
             <div className="profile__contacts">

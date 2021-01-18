@@ -1,4 +1,4 @@
-import {authAPI} from "../api/getUsers";
+import {authAPI} from "../api/api";
 
 export const SET_USER_DATA = 'SET_USER_DATA';
 
