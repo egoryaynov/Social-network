@@ -2,24 +2,15 @@ import React from 'react';
 
 import './Posts.scss';
 import PostItem from "./PostItem/PostItem";
+import PostForm from "./PostForm/PostForm";
 
-const Posts = ({state, changePost, buttonClick}) => {
-    let onClickButton = () => {
-        buttonClick();
-    }
-    let onChangePost = (event) => {
-        changePost(event.target.value);
-    }
-
+const Posts = ({posts, addPost}) => {
     return (
         <div className='profile__posts'>
-            <div className="profile__posts-add">
-                <textarea value={state.postText} onChange={onChangePost}/>
-                <button onClick={onClickButton}>Add post</button>
-            </div>
+            <PostForm addPost={addPost}/>
 
             <div className='profile__posts-wrapper'>
-                {state.posts.map(post =>
+                {posts.map(post =>
                     <PostItem key={post.id} message={post.message} likesCount={post.likesCount}/>
                 )}
             </div>

@@ -18,7 +18,7 @@ const FormLogin = () => {
     });
 
     return (
-        <form onSubmit={formik.handleSubmit}>
+        <form className='login__form' onSubmit={formik.handleSubmit}>
             <input
                 placeholder="Email"
                 type="email"

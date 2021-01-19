@@ -4,18 +4,9 @@ import './Dialogs.scss';
 
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
-import {Redirect} from "react-router-dom";
+import DialogsForm from "./DialogsForm/DialogsForm";
 
-const Dialogs = ({state, changeMessage, buttonClick, isAuth}) => {
-    let onChange = (event) => {
-        changeMessage(event.target.value);
-    }
-    let onButtonClick = () => {
-        buttonClick();
-    }
-
-    if (!isAuth) return <Redirect to='/login'/>
-    
+const Dialogs = ({state, addMessage}) => {
     return (
         <div className='dialogs'>
             <div className="dialogs__list-wrapper">
@@ -31,13 +22,8 @@ const Dialogs = ({state, changeMessage, buttonClick, isAuth}) => {
                         <MessageItem key={message.id} text={message.text}/>
                     )}
                 </ul>
-                <div className="dialogs__messages-form">
-                    <textarea value={state.messageText}
-                              onChange={onChange}
-                              placeholder='Введите сообщение'
-                    />
-                    <button onClick={onButtonClick}>Отправить</button>
-                </div>
+
+                <DialogsForm addMessage={addMessage}/>
             </div>
         </div>
     );

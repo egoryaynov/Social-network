@@ -3,8 +3,8 @@ import FormLogin from './FormLogin/FormLogin'
 
 const Login = () => {
     return (
-        <div>
-            <h1>LOGIN</h1>
+        <div className='login'>
+            <h1 className='login__title'>LOGIN</h1>
             <FormLogin/>
         </div>
     );
