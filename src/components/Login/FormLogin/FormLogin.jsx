@@ -3,7 +3,7 @@ import React from "react";
 import {required} from "../../../utils/vilidate";
 import ErrorMessage from "../../common/ErrorMessage/ErrorMessage";
 
-const FormLogin = () => {
+const FormLogin = ({login}) => {
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -21,11 +21,8 @@ const FormLogin = () => {
             return errors
         }),
         onSubmit: (values, {setSubmitting}) => {
-            setTimeout(() => {
-                // EXAMPLE HOW FORMIK MAY WORKS WITH ASYNC
-                console.log(values)
-                setSubmitting(false);
-            }, 2000);
+            login(values.email, values.password, values.isRememberMe)
+            setSubmitting(false)
         }
     });
 

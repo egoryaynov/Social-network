@@ -10,5 +10,9 @@
   &__login {
     color: #fff;
     font-size: 20px;
+
+    &-name {
+      display: block;
+    }
   }
 }
