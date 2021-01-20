@@ -1,0 +1,9 @@
+.login {
+  &__form > div {
+    margin-bottom: 10px;
+  }
+
+  &__error-message {
+    margin-bottom: 5px;
+  }
+}
