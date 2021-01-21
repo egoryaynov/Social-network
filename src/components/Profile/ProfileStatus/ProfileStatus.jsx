@@ -1,51 +1,37 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 
-class ProfileStatus extends Component {
-    state = {
-        editMode: false,
-        status: this.props.status
-    }
+const ProfileStatus = (props) => {
+    const [editMode, setEditMode] = useState(false);
+    const [status, setStatus] = useState(props.status);
 
-    activateEdit = () => {
-        this.setState({
-            editMode: true
-        })
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
+
+    const activateEdit = () => {
+        setEditMode(true);
     }
-    deactivateEdit = () => {
-        this.setState({
-            editMode: false
-        })
-        this.props.updateStatus(this.state.status)
+    const deactivateEdit = () => {
+        setEditMode(false)
+        props.updateStatus(status)
     }
 
-    changeStatus(status) {
-        this.setState({
-            status: status
-        })
+    const changeStatus = (newStatus) => {
+        setStatus(newStatus)
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.status !== prevProps.status) {
-            this.setState({
-                status: prevProps.status
-            })
-        }
-    }
-
-    render() {
-        return (
-            <>
-                {this.state.editMode
-                    ? <input autoFocus={true}
-                             onChange={(event) => this.changeStatus(event.currentTarget.value)}
-                             onBlur={this.deactivateEdit}
-                             type="text"
-                             value={this.state.status}/>
-                    : <div className="profile__status"
-                           onClick={this.activateEdit}>{this.props.status || 'aaaaaaaaaaaaaaaaaaaaaa'}</div>}
-            </>
-        );
-    }
+    return (
+        <>
+            {editMode
+                ? <input autoFocus={true}
+                         onChange={(event) => changeStatus(event.currentTarget.value)}
+                         onBlur={deactivateEdit}
+                         type="text"
+                         value={status}/>
+                : <div className="profile__status"
+                       onClick={activateEdit}>{status || 'aaaaaaaaaaaaaaaaaaaaaa'}</div>}
+        </>
+    );
 }
 
 
