@@ -3,6 +3,8 @@
 .idea/
 .idea/*
 
+.eslintcache
+
 # dependencies
 /node_modules
 /.pnp
