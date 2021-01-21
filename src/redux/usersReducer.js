@@ -80,7 +80,7 @@ export const pageChange = (users) => ({type: PAGE_CHANGE, users})
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
 export const toggleFollowFetching = (isFetching, userID) => ({type: TOGGLE_FOLLOW_FETCHING, isFetching, userID})
 
-export const getUsers = (page, pageSize) => {
+export const requestUsers = (page, pageSize) => {
     return (dispatch) => {
         dispatch(toggleIsFetching(true));
 
