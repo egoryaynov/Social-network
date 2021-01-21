@@ -16,11 +16,11 @@ import {
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsers(1, this.props.pageSize);
+        this.props.requestUsers(1, this.props.pageSize);
     }
 
     onChangePage = (page) => {
-        this.props.getUsers(page, this.props.pageSize);
+        this.props.requestUsers(page, this.props.pageSize);
     }
 
     render() {
@@ -48,6 +48,6 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        followToggle, pageChange, toggleFollowFetching, getUsers: requestUsers, onFollowUser
+        followToggle, pageChange, toggleFollowFetching, requestUsers, onFollowUser
     }
 )(UsersContainer)
