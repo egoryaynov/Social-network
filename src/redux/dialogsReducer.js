@@ -1,4 +1,4 @@
-export const ADD_MESSAGE = 'ADD_MESSAGE';
+const ADD_MESSAGE = 'ADD_MESSAGE';
 
 const initialState = {
     messages: [

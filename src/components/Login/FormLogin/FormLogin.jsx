@@ -20,9 +20,12 @@ const FormLogin = ({login}) => {
 
             return errors
         }),
-        onSubmit: (values, {setSubmitting}) => {
-            login(values.email, values.password, values.isRememberMe)
-            setSubmitting(false)
+        onSubmit: async (values, {setStatus}) => {
+            try {
+                await login(values.email, values.password, values.isRememberMe)
+            } catch (error) {
+                setStatus(error.message)
+            }
         }
     });
 
@@ -65,6 +68,7 @@ const FormLogin = ({login}) => {
                 />
                 <label htmlFor="rememberMe">Remember me</label>
             </div>
+            {!!formik.status && <ErrorMessage className='login__error-message'>{formik.status}</ErrorMessage>}
             <button type="submit" disabled={formik.isSubmitting || formik.errors.email || formik.errors.password}>
                 Submit
             </button>

@@ -9,31 +9,46 @@ import UsersContainer from "./components/Users/UsersContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import Login from "./components/Login/Login";
+import {Component} from "react";
+import {connect} from "react-redux";
+import {initialize} from "./redux/appReducer";
+import Preloader from "./components/common/Preloader/Preloader";
 
-function App() {
-    return (
-        <div className='app-wrapper'>
-            <HeaderContainer/>
-            <div className="content-wrapper">
-                <Aside/>
-                <Route path='/dialogs' render={() =>
-                    <DialogsContainer/>
-                }/>
-                <Route path='/profile/:userID?' render={() =>
-                    <ProfileContainer/>
-                }/>
-                <Route path='/news' component={News}/>
-                <Route path='/music' component={Music}/>
-                <Route path='/settings' component={Settings}/>
-                <Route path='/users' render={() =>
-                    <UsersContainer/>
-                }/>
-                <Route path='/login' render={() =>
-                    <Login/>
-                }/>
+class App extends Component {
+    componentDidMount() {
+        this.props.initialize()
+    }
+
+    render() {
+        if (!this.props.initialized) return <Preloader/>
+
+        return (
+            <div className='app-wrapper'>
+                <HeaderContainer/>
+                <div className="content-wrapper">
+                    <Aside/>
+                    <Route path='/dialogs' render={() =>
+                        <DialogsContainer/>
+                    }/>
+                    <Route path='/profile/:userID?' render={() =>
+                        <ProfileContainer/>
+                    }/>
+                    <Route path='/news' component={News}/>
+                    <Route path='/music' component={Music}/>
+                    <Route path='/settings' component={Settings}/>
+                    <Route path='/users' render={() =>
+                        <UsersContainer/>
+                    }/>
+                    <Route path='/login' render={() =>
+                        <Login/>
+                    }/>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    initialized: state.app.initialized
+})
+export default connect(mapStateToProps, {initialize})(App);

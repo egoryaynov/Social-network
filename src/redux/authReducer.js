@@ -1,6 +1,6 @@
 import {authAPI} from "../api/api";
 
-export const SET_USER_DATA = 'SET_USER_DATA';
+const SET_USER_DATA = 'SET_USER_DATA';
 
 const initialState = {
     userID: null,
@@ -41,12 +41,14 @@ export const login = (email, password, rememberMe) => (dispatch) => {
         .then(data => {
             if (data.resultCode === 0) {
                 dispatch(authorization())
+            } else {
+                throw new Error(data.messages[0])
             }
         })
 }
 
 export const logout = () => (dispatch) => {
-    return authAPI.logout()
+    authAPI.logout()
         .then((data) => {
             if (data.resultCode === 0) {
                 dispatch(setUserData(null, null, null, false))

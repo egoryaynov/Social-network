@@ -9,7 +9,7 @@ import {compose} from "redux";
 
 class ProfileContainer extends Component {
     componentDidMount() {
-        let userID = this.props.match.params.userID || 14092;
+        let userID = this.props.match.params.userID || (this.props.isAuth && this.props.authUserID);
 
         this.props.getUserProfile(userID)
         this.props.getStatus(userID)
@@ -29,11 +29,13 @@ class ProfileContainer extends Component {
 
 const mapStateToProps = (state) => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authUserID: state.auth.userID,
+    isAuth: state.auth.isAuth
 })
 
 export default compose(
-    withAuthRedirect,
     withRouter,
+    withAuthRedirect,
     connect(mapStateToProps, {getUserProfile, getStatus, updateStatus})
 )(ProfileContainer)
