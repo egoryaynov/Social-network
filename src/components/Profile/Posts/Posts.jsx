@@ -4,7 +4,7 @@ import './Posts.scss';
 import PostItem from "./PostItem/PostItem";
 import PostForm from "./PostForm/PostForm";
 
-const Posts = ({posts, addPost}) => {
+const Posts = React.memo(({posts, addPost}) => {
     return (
         <div className='profile__posts'>
             <PostForm addPost={addPost}/>
@@ -16,6 +16,6 @@ const Posts = ({posts, addPost}) => {
             </div>
         </div>
     );
-};
+});
 
 export default Posts;
