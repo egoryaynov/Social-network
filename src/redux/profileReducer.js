@@ -1,7 +1,6 @@
 import {profileAPI} from "../api/api";
 
 const ADD_POST = 'ADD_POST';
-const UPDATE_POST_TEXT = 'UPDATE_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
@@ -46,6 +45,7 @@ const profileReducer = (state = initialState, action) => {
 
 export const addPost = (postText) => ({type: ADD_POST, postText});
 export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile});
+export const clearUserProfile = () => setUserProfile(null);
 export const setStatus = (status) => ({type: SET_STATUS, status});
 
 export const getUserProfile = (userID) => {
