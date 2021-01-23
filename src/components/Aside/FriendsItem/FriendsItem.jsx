@@ -5,13 +5,13 @@ import './FriendsItem.scss';
 
 import friendAvatar from '../../../assets/friend-avatar.jpg';
 
-const FriendsItem = ({state}) => {
+const FriendsItem = ({friends}) => {
     return (
         <div className='aside__friends'>
             <NavLink className='aside__friends-title' to='/users'>Users</NavLink>
 
             <div className="aside__friends-wrapper">
-                {state.map(friend => {
+                {friends.map(friend => {
                     return (
                         <NavLink key={friend.id} className="aside__friends-link" to={`/users/${friend.id}`}>
                             <div className='aside__friends-item'>

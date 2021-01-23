@@ -16,6 +16,7 @@ const Aside = () => {
                     <NavListItem link='/settings'/>
                 </ul>
             </nav>
+            {/*TODO ПЕРЕДЕЛАТЬ ВЫВОД ДРУЗЕЙ В ASIDE */}
             <FriendsItemContainer/>
         </aside>
     );

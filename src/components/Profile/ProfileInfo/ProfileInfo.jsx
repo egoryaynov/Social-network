@@ -26,8 +26,12 @@ const ProfileInfo = ({profile, status, updateStatus}) => {
 
             <h2>Я в соц. сетях:</h2>
             <div className="profile__contacts">
-                {contacts.map((contact) => <a href={`https://${contact.link}`}
-                                              className='profile__contacts-item'>{contact.social}</a>)}
+                {contacts.map((contact) => (
+                    <a href={contact.link.includes('https://')
+                        ? contact.link
+                        : `https://${contact.link}`}
+                       className='profile__contacts-item'>{contact.social}</a>)
+                )}
             </div>
             <div className="profile__job">
                 <h2>Интересуют ли вакансии по работе?</h2>

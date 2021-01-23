@@ -1,26 +1,20 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {required} from "../../../utils/vilidate";
 import ErrorMessage from "../../common/ErrorMessage/ErrorMessage";
+import * as Yup from "yup";
 
 const DialogsForm = ({addMessage}) => {
     const formik = useFormik({
         initialValues: {
             message: ''
         },
-        validate: (values => {
-            let errors = {}
-            let requiredMessage = required(values.message)
-
-            if (requiredMessage) errors.message = requiredMessage
-
-            return errors
+        validationSchema: Yup.object().shape({
+            message: Yup.string().required('This field required'),
         }),
-        onSubmit: (values, {setSubmitting}) => {
+        onSubmit: async (values, {setSubmitting}) => {
             setTimeout(() => {
                 // EXAMPLE HOW FORMIK MAY WORKS WITH ASYNC
                 addMessage(values.message)
-                setSubmitting(false);
             }, 2000);
         }
     });

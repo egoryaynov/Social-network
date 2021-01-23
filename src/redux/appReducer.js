@@ -24,7 +24,6 @@ const initializeSuccess = () => ({type: INITIALIZE_SUCCESS})
 export const initialize = () => (dispatch) => {
     Promise.all([dispatch(authorization())])
         .then(() => dispatch(initializeSuccess()))
-
 }
 
 export default dialogsReducer;

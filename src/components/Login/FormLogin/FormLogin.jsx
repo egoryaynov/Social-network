@@ -1,6 +1,6 @@
 import {useFormik} from "formik";
+import * as Yup from 'yup';
 import React from "react";
-import {required} from "../../../utils/vilidate";
 import ErrorMessage from "../../common/ErrorMessage/ErrorMessage";
 
 const FormLogin = ({login}) => {
@@ -10,15 +10,9 @@ const FormLogin = ({login}) => {
             password: '',
             isRememberMe: false
         },
-        validate: (values => {
-            let errors = {}
-            let requiredEmail = required(values.email)
-            let requiredPassword = required(values.password)
-
-            if (requiredEmail) errors.email = requiredEmail
-            if (requiredPassword) errors.password = requiredPassword
-
-            return errors
+        validationSchema: Yup.object().shape({
+            password: Yup.string().min(8, 'Password is too short - should be 8 chars minimum.').required('This field required'),
+            email: Yup.string().email('Invalid email').required('This field required'),
         }),
         onSubmit: async (values, {setStatus}) => {
             try {

@@ -80,37 +80,30 @@ export const pageChange = (users) => ({type: PAGE_CHANGE, users})
 export const toggleIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetching})
 export const toggleFollowFetching = (isFetching, userID) => ({type: TOGGLE_FOLLOW_FETCHING, isFetching, userID})
 
-export const requestUsers = (page, pageSize) => {
-    return (dispatch) => {
-        dispatch(toggleIsFetching(true));
+export const requestUsers = (page, pageSize) => async (dispatch) => {
+    dispatch(toggleIsFetching(true));
 
-        usersAPI.getUsers(page, pageSize)
-            .then(data => {
-                dispatch(setCurrentPage(page))
-                dispatch(toggleIsFetching(false));
-                dispatch(setUsers(data.items));
-                dispatch(setTotalUsersCount(data.totalCount));
-            })
-    }
+    let data = await usersAPI.getUsers(page, pageSize)
+
+    dispatch(setCurrentPage(page))
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalUsersCount(data.totalCount));
 }
 
-export const onFollowUser = (userID, isFollow) => {
-    return (dispatch) => {
-        dispatch(toggleFollowFetching(true, userID));
+export const onFollowUser = (userID, isFollow) => async (dispatch) => {
+    dispatch(toggleFollowFetching(true, userID));
 
-        if (isFollow) {
-            usersAPI.deleteFollow(userID)
-                .then(() => {
-                    dispatch(followToggle(userID))
-                    dispatch(toggleFollowFetching(false, userID))
-                })
-        } else {
-            usersAPI.postFollow(userID)
-                .then(() => {
-                    dispatch(followToggle(userID))
-                    dispatch(toggleFollowFetching(false, userID))
-                })
-        }
+    if (isFollow) {
+        await usersAPI.deleteFollow(userID)
+
+        dispatch(followToggle(userID))
+        dispatch(toggleFollowFetching(false, userID))
+    } else {
+        await usersAPI.postFollow(userID)
+
+        dispatch(followToggle(userID))
+        dispatch(toggleFollowFetching(false, userID))
     }
 }
 

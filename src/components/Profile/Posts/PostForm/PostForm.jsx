@@ -1,20 +1,15 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {required} from "../../../../utils/vilidate";
 import ErrorMessage from "../../../common/ErrorMessage/ErrorMessage";
+import * as Yup from "yup";
 
 const PostForm = ({addPost}) => {
     const formik = useFormik({
         initialValues: {
             postText: ''
         },
-        validate: (values => {
-            let errors = {}
-            let requiredPostText = required(values.postText)
-
-            if (requiredPostText) errors.postText = requiredPostText
-
-            return errors
+        validationSchema: Yup.object().shape({
+            postText: Yup.string().required('This field required'),
         }),
         onSubmit: (values, {setSubmitting}) => {
             setTimeout(() => {
