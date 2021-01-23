@@ -1,11 +1,12 @@
 import React from "react";
 
-import './ErrorMessge.scss'
+import style from './ErrorMessge.module.scss';
 
 const ErrorMessage = (props) => {
     return (
-        <div className={`${props.className} field-error`}>{props.children}</div>
+        <div className={`${props.className} ${style.fieldError}`}>{props.children}</div>
     )
 }
+
 
 export default ErrorMessage
