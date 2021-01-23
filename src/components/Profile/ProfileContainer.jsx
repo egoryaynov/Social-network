@@ -11,6 +11,7 @@ class ProfileContainer extends Component {
     componentDidMount() {
         let userID = this.props.match.params.userID || (this.props.isAuth && this.props.authUserID);
 
+        
         this.props.getUserProfile(userID)
         this.props.getStatus(userID)
     }
