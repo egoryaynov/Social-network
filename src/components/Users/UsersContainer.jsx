@@ -5,7 +5,6 @@ import {
     followToggle, requestUsers, onFollowUser, pageChange, toggleFollowFetching
 } from "../../redux/usersReducer";
 import Users from "./Users";
-import Preloader from "../common/Preloader/Preloader";
 import {
     getCurrentPage,
     getIsFetching, getIsFollowsFetching,
@@ -25,11 +24,7 @@ class UsersContainer extends React.Component {
 
     render() {
         return (
-            <>
-                {this.props.isFetching
-                    ? <Preloader/>
-                    : <Users {...this.props} onChangePage={this.onChangePage}/>}
-            </>
+            <Users {...this.props} onChangePage={this.onChangePage}/>
         )
     }
 

@@ -1,0 +1,15 @@
+.paginator {
+  display: grid;
+  grid-template-columns: repeat( 30, 1fr);
+  margin-bottom: 20px;
+  text-align: center;
+
+  &Item {
+    cursor: pointer;
+
+    &Active {
+      color: red;
+      font-weight: bold;
+    }
+  }
+}

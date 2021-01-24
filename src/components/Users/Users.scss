@@ -34,19 +34,3 @@
     }
   }
 }
-
-.pagination {
-  display: grid;
-  grid-template-columns: repeat( 30, 1fr);
-  margin-bottom: 20px;
-  text-align: center;
-
-  &__item {
-    cursor: pointer;
-
-    &--active {
-      color: red;
-      font-weight: bold;
-    }
-  }
-}
