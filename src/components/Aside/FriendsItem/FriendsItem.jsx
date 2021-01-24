@@ -3,7 +3,7 @@ import {NavLink} from "react-router-dom";
 
 import './FriendsItem.scss';
 
-import friendAvatar from '../../../assets/friend-avatar.jpg';
+import friendAvatar from '../../../assets/avatar.png';
 
 const FriendsItem = ({friends}) => {
     return (

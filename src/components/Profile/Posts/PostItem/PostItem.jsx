@@ -2,7 +2,7 @@ import React from 'react';
 
 import './PostItem.scss';
 
-import avatar from '../../../../assets/posts-avatar.jpg';
+import avatar from '../../../../assets/avatar.png';
 
 const PostItem = ({message, likesCount}) => {
     return (
