@@ -18,6 +18,7 @@ const Users = ({
     return (
         <div className='users'>
             <Paginator page={currentPage}
+                       className={isFetching ? "hide" : ""}
                        totalItemsCount={totalUsersCount}
                        pageSize={pageSize}
                        onChangePage={onChangePage}

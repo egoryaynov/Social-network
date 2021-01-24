@@ -1,11 +1,25 @@
 .paginator {
-  display: grid;
-  grid-template-columns: repeat( 30, 1fr);
+  display: flex;
   margin-bottom: 20px;
-  text-align: center;
+  justify-content: center;
+
+  &Wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+  }
 
   &Item {
+    flex: 1;
     cursor: pointer;
+    border: 2px solid #c83f5a;
+    border-radius: 5px;
+    padding: 3px;
+
+    &:not(:last-child) {
+      margin-right: 4px;
+    }
 
     &Active {
       color: red;

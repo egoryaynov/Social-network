@@ -1,6 +1,7 @@
 import React from 'react';
 
 import style from './Paginator.module.scss';
+import {calcShowItems} from "../../../utils/paginator";
 
 const Paginator = ({className = '', totalItemsCount, pageSize, currentPage, onChangePage}) => {
     const pagesMemo = React.useMemo(() => {
@@ -14,15 +15,31 @@ const Paginator = ({className = '', totalItemsCount, pageSize, currentPage, onCh
         return pages;
     }, [totalItemsCount, pageSize])
 
+    const showItems = calcShowItems(pagesMemo, currentPage);
+
     return (
         <div className={`${style.paginator} ${className}`}>
-            {pagesMemo.map((page) => (
-                <span
-                    className={currentPage === page
-                        ? `${style.paginatorItem} ${style.paginatorItemActive}`
-                        : `${style.paginatorItem}`}
-                    onClick={() => onChangePage(page)}>{page}</span>
-            ))}
+            <button className={currentPage === 1 ? "hide" : ""}
+                    disabled={currentPage === 1}
+                    onClick={() => onChangePage(currentPage - 1)}>
+                Prev
+            </button>
+
+            <div className={style.paginatorWrapper}>
+                {showItems.map((page) => (
+                    <span
+                        className={currentPage === page
+                            ? `${style.paginatorItem} ${style.paginatorItemActive}`
+                            : `${style.paginatorItem}`}
+                        onClick={() => onChangePage(page)}>{page}</span>
+                ))}
+            </div>
+
+            <button className={currentPage === pagesMemo.length ? "hide" : ""}
+                    disabled={currentPage === pagesMemo.length}
+                    onClick={() => onChangePage(currentPage + 1)}>
+                Next
+            </button>
         </div>
     );
 };

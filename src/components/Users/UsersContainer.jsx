@@ -12,6 +12,8 @@ import {
     getTotalUsersCount,
     getUsers
 } from "../../redux/selectors/usersSelectors";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -41,8 +43,9 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps,
-    {
+export default compose(
+    withRouter,
+    connect(mapStateToProps, {
         followToggle, pageChange, toggleFollowFetching, requestUsers, onFollowUser
-    }
+    })
 )(UsersContainer)
