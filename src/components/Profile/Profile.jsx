@@ -5,10 +5,14 @@ import './Profile.scss';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsContainer from "./Posts/PostsContainer";
 
-const Profile = ({profile, status, updateStatus}) => {
+const Profile = ({profile, status, updateStatus, authUserID, savePhoto}) => {
     return (
         <div className='profile'>
-            <ProfileInfo profile={profile} status={status} updateStatus={updateStatus}/>
+            <ProfileInfo savePhoto={savePhoto}
+                         authUserID={authUserID}
+                         profile={profile}
+                         status={status}
+                         updateStatus={updateStatus}/>
             <PostsContainer/>
         </div>
     );
