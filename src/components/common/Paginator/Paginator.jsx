@@ -15,9 +15,7 @@ const Paginator = ({className = '', totalItemsCount, pageSize, currentPage, onCh
         return pages;
     }, [totalItemsCount, pageSize])
 
-    const showItems = React.useMemo(() => {
-        return calcShowItems(pagesMemo, currentPage);
-    }, [currentPage]);
+    const showItems = calcShowItems(pagesMemo, currentPage);
 
     return (
         <div className={`${style.paginator} ${className}`}>

@@ -1,3 +1,4 @@
+import React from 'react';
 import {Route} from 'react-router-dom';
 
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -7,12 +8,14 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import Login from "./components/Login/Login";
 import {Component} from "react";
 import {connect} from "react-redux";
 import {initialize} from "./redux/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
+import {withSuspense} from "./hoc/withSuspense";
+
+let ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 class App extends Component {
     componentDidMount() {
@@ -30,9 +33,7 @@ class App extends Component {
                     <Route path='/dialogs' render={() =>
                         <DialogsContainer/>
                     }/>
-                    <Route path='/profile/:userID?' render={() =>
-                        <ProfileContainer/>
-                    }/>
+                    <Route path='/profile/:userID?' render={withSuspense(ProfileContainer)}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>

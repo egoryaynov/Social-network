@@ -29,7 +29,7 @@ const ProfileStatus = (props) => {
                          type="text"
                          value={status}/>
                 : <div className="profile__status"
-                       onClick={activateEdit}>{status || 'aaaaaaaaaaaaaaaaaaaaaa'}</div>}
+                       onClick={activateEdit}>{status || '*Click to change status*'}</div>}
         </>
     );
 }
