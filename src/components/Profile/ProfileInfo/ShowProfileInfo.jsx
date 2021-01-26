@@ -1,26 +1,24 @@
 import React from 'react';
 import style from "./ProfileInfo.module.scss";
 
-const ShowProfileInfo = ({profile, contacts}) => {
+const ShowProfileInfo = ({profile}) => {
     return (
         <>
-            {contacts.length !== 0
-                ? <div>
-                    <h2>Я в соц. сетях:</h2>
-                    <div className={style.contacts}>
-                        {contacts.map((contact) => (
-                                <div className={style.contactsWrapper}>
-                                    <b>{contact.social + ': '}</b>
-                                    <a href={contact.link.includes('https://')
-                                        ? contact.link
-                                        : `https://${contact.link}`}
-                                       className={style.contactsItem}>{contact.link}</a>
-                                </div>
-                            )
-                        )}
-                    </div>
+            {profile.contacts.length !== 0 &&
+            <div>
+                <h2>Я в соц. сетях:</h2>
+                <div className={style.contacts}>
+                    {/*Display not empty social links*/}
+                    {Object.keys(profile.contacts).map(social => {
+                        if (profile.contacts[social] === null) return null
+                        return <div className={style.contactsWrapper}>
+                            <b>{social + ': '}</b>
+                            <a href={profile.contacts[social]}
+                               className={style.contactsItem}>{profile.contacts[social]}</a>
+                        </div>
+                    })}
                 </div>
-                : null}
+            </div>}
 
             <div className={style.job}>
                 <h2>Интересуют ли вакансии по работе?</h2>

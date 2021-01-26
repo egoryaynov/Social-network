@@ -6,7 +6,6 @@ import ProfileStatus from '../ProfileStatus/ProfileStatus';
 import style from './ProfileInfo.module.scss';
 import EditProfileInfo from "./EditProfileInfo";
 import ShowProfileInfo from "./ShowProfileInfo";
-import {getNotNullContacts} from "../../../utils/profile";
 
 const ProfileInfo = ({profile, status, updateStatus, authUserID, savePhoto, updateProfileInfo}) => {
     const [editMode, setEditMode] = React.useState(false);
@@ -14,10 +13,6 @@ const ProfileInfo = ({profile, status, updateStatus, authUserID, savePhoto, upda
     const onProfilePhotoSelected = (event) => {
         savePhoto(event.target.files[0]);
     };
-
-    const contacts = React.useMemo(() => {
-        return getNotNullContacts(profile.contacts);
-    }, [profile.contacts]);
 
     const onClickEdit = () => {
         setEditMode(true);
@@ -54,7 +49,7 @@ const ProfileInfo = ({profile, status, updateStatus, authUserID, savePhoto, upda
             {editMode
                 ? <EditProfileInfo profile={profile} updateProfileInfo={updateProfileInfo}
                                    deactivateEditMode={deactivateEditMode}/>
-                : <ShowProfileInfo profile={profile} contacts={contacts}/>}
+                : <ShowProfileInfo profile={profile}/>}
         </div>
     );
 };
