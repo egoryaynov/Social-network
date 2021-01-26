@@ -11,8 +11,9 @@ const ShowProfileInfo = ({profile}) => {
                     {/*Display not empty social links*/}
                     {Object.keys(profile.contacts).map(social => {
                         if (profile.contacts[social] === null) return null
+
                         return <div className={style.contactsWrapper}>
-                            <b>{social + ': '}</b>
+                            <b>{`${social}: `}</b>
                             <a href={profile.contacts[social]}
                                className={style.contactsItem}>{profile.contacts[social]}</a>
                         </div>
@@ -31,7 +32,7 @@ const ShowProfileInfo = ({profile}) => {
                         <b>{profile.lookingForAJob ? 'Да!' : 'Нет :('}</b>
                     </span>
                 </div>
-                <span className='profile__job-description'>{profile.lookingForAJobDescription}</span>
+                <span>{profile.lookingForAJobDescription}</span>
             </div>
         </>
     );

@@ -30,7 +30,7 @@ const PostForm = ({addPost}) => {
                 value={formik.values.postText}
             />
             {formik.errors.postText && formik.touched.postText &&
-            <ErrorMessage className='post__text-error'>{formik.errors.postText}</ErrorMessage>}
+            <ErrorMessage>{formik.errors.postText}</ErrorMessage>}
 
             <button type="submit" disabled={formik.isSubmitting || formik.errors.postText}>
                 Submit

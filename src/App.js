@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Aside from "./components/Aside/Aside";
@@ -14,6 +14,7 @@ import {connect} from "react-redux";
 import {initialize} from "./redux/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import {withSuspense} from "./hoc/withSuspense";
+import PageNotFound from "./components/common/PageNotFound/PageNotFound";
 
 let ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
@@ -26,23 +27,30 @@ class App extends Component {
         if (!this.props.initialized) return <Preloader/>
 
         return (
-            <div className='app-wrapper'>
+            <div>
                 <HeaderContainer/>
                 <div className="content-wrapper">
                     <Aside/>
-                    <Route path='/dialogs' render={() =>
-                        <DialogsContainer/>
-                    }/>
-                    <Route path='/profile/:userID?' render={withSuspense(ProfileContainer)}/>
-                    <Route path='/news' component={News}/>
-                    <Route path='/music' component={Music}/>
-                    <Route path='/settings' component={Settings}/>
-                    <Route path='/users/:page?' render={() =>
-                        <UsersContainer/>
-                    }/>
-                    <Route path='/login' render={() =>
-                        <Login/>
-                    }/>
+
+                    <Switch>
+                        <Redirect exact from='/' to='/profile'/>
+
+                        <Route path='/dialogs' render={() =>
+                            <DialogsContainer/>
+                        }/>
+                        <Route path='/profile/:userID?' render={withSuspense(ProfileContainer)}/>
+                        <Route path='/news' component={News}/>
+                        <Route path='/music' component={Music}/>
+                        <Route path='/settings' component={Settings}/>
+                        <Route path='/users/:page?' render={() =>
+                            <UsersContainer/>
+                        }/>
+                        <Route path='/login' render={() =>
+                            <Login/>
+                        }/>
+
+                        <Route path='' render={() => <PageNotFound/>}/>
+                    </Switch>
                 </div>
             </div>
         );

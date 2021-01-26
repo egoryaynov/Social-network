@@ -1,5 +1,4 @@
-export const calcShowItems = (pages, currentPage) => {
-    const pagesToShow = 19;
+export const calcShowItems = (pages, currentPage, pagesToShow) => {
     const showPages = getShowPages(pages, currentPage, pagesToShow);
 
     return assemblyPages(pages, currentPage, showPages, pagesToShow);

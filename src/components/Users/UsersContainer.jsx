@@ -8,7 +8,7 @@ import Users from "./Users";
 import {
     getCurrentPage,
     getIsFetching, getIsFollowsFetching,
-    getPageSize,
+    getPageSize, getPagesToShow,
     getTotalUsersCount,
     getUsers
 } from "../../redux/selectors/usersSelectors";
@@ -17,7 +17,9 @@ import {withRouter} from "react-router-dom";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.requestUsers(1, this.props.pageSize);
+        const page = parseInt(this.props.match.params.page) || 1;
+
+        this.props.requestUsers(page, this.props.pageSize);
     }
 
     onChangePage = (page) => {
@@ -39,7 +41,8 @@ const mapStateToProps = (state) => {
         pageSize: getPageSize(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
-        isFollowsFetching: getIsFollowsFetching(state)
+        isFollowsFetching: getIsFollowsFetching(state),
+        pagesToShow: getPagesToShow(state)
     }
 }
 

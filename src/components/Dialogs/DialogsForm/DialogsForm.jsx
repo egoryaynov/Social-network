@@ -11,11 +11,8 @@ const DialogsForm = ({addMessage}) => {
         validationSchema: Yup.object().shape({
             message: Yup.string().required('This field required'),
         }),
-        onSubmit: async (values, {setSubmitting}) => {
-            setTimeout(() => {
-                // EXAMPLE HOW FORMIK MAY WORKS WITH ASYNC
-                addMessage(values.message)
-            }, 2000);
+        onSubmit: (values) => {
+            addMessage(values.message);
         }
     });
 

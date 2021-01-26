@@ -1,3 +1,4 @@
+// This is examples how to use selectors
 import {createSelector} from "reselect";
 
 const getUsersSelector = (state) => {
@@ -6,6 +7,10 @@ const getUsersSelector = (state) => {
 export const getUsers = createSelector(getUsersSelector, (users) => {
     return users
 })
+
+export const getPagesToShow = (state) => {
+    return state.usersPage.pagesToShow
+}
 
 export const getTotalUsersCount = (state) => {
     return state.usersPage.totalUsersCount

@@ -3,6 +3,8 @@ import * as Yup from 'yup';
 import React from "react";
 import ErrorMessage from "../../common/ErrorMessage/ErrorMessage";
 
+import styles from './FormLogin.module.scss';
+
 const FormLogin = ({login, captchaUrl}) => {
     const formik = useFormik({
         initialValues: {
@@ -25,10 +27,9 @@ const FormLogin = ({login, captchaUrl}) => {
     });
 
     return (
-        <form className='login__form' onSubmit={formik.handleSubmit}>
+        <form className={styles.form} onSubmit={formik.handleSubmit}>
             <div>
                 <input
-                    className="login__form-email"
                     placeholder="Email"
                     type="email"
                     name="email"
@@ -37,11 +38,10 @@ const FormLogin = ({login, captchaUrl}) => {
                     value={formik.values.email}
                 />
                 {formik.errors.email && formik.touched.email &&
-                <ErrorMessage className='login__error-message'>{formik.errors.email}</ErrorMessage>}
+                <ErrorMessage className={styles.errorMessage}>{formik.errors.email}</ErrorMessage>}
             </div>
             <div>
                 <input
-                    className="login__form-password"
                     placeholder="Пароль"
                     type="password"
                     name="password"
@@ -50,7 +50,7 @@ const FormLogin = ({login, captchaUrl}) => {
                     value={formik.values.password}
                 />
                 {formik.errors.password && formik.touched.password &&
-                <ErrorMessage className='login__error-message'>{formik.errors.password}</ErrorMessage>}
+                <ErrorMessage className={styles.errorMessage}>{formik.errors.password}</ErrorMessage>}
             </div>
             <div>
                 <input
@@ -77,11 +77,11 @@ const FormLogin = ({login, captchaUrl}) => {
                     onBlur={formik.handleBlur}
                 />
                 {formik.errors.captcha && formik.touched.captcha &&
-                <ErrorMessage className='login__error-message'>{formik.errors.captcha}</ErrorMessage>}
+                <ErrorMessage className={styles.errorMessage}>{formik.errors.captcha}</ErrorMessage>}
             </div>
             }
 
-            {!!formik.status && <ErrorMessage className='login__error-message'>{formik.status}</ErrorMessage>}
+            {!!formik.status && <ErrorMessage className={styles.errorMessage}>{formik.status}</ErrorMessage>}
             <button type="submit" disabled={formik.isSubmitting || formik.errors.email || formik.errors.password}>
                 Submit
             </button>

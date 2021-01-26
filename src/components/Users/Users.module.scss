@@ -1,0 +1,34 @@
+.userItem {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-gap: 15px;
+  padding-bottom: 40px;
+}
+
+.userAvatar {
+  width: 300px;
+}
+
+.description {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+
+  &Main {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+  }
+}
+
+.status {
+  align-self: end;
+}
+
+.location {
+  text-align: right;
+  align-self: center;
+
+  span {
+    display: block;
+  }
+}

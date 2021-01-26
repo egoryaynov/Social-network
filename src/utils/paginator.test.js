@@ -1,25 +1,46 @@
-import {assemblyPages} from "./paginator";
+import {assemblyPages, calcShowItems} from "./paginator";
 
 describe("Validate utilities for validator", () => {
-    it("should don't push 1 to array if currentPage equal 1", () => {
+    const pagesToShow = 20;
+    const pages = [];
+    for (let i = 1; i < 100; i++) {
+        pages.push(i);
+    }
 
-        /* TODO Написать тесты на функции пагинатора (paginator.js) */
-        // const pages = [];
-        // const currentPage = 1;
-        //
-        // const lastPage = 1871;
-        // for (let i = 1; i <= lastPage; i++) {
-        //     pages.push(i);
-        // }
-        //
-        // const showPages = [];
-        // for (let i = 1; i <= showPages; i++) {
-        //     showPages.push(i);
-        // }
-        //
-        // //const totalUsersCount = 9351;
-        //
-        // const output = [...pages, 1871];
-        // expect(assemblyPages(pages, currentPage, showPages)).toEqual(output);
+    it("should show first and last page if current page in the middle", () => {
+        const currentPage = Math.ceil(pages.length / 2);
+
+        const output = [1, ...pages.slice(currentPage - 1, currentPage - 1 + pagesToShow), pages.length];
+        expect(calcShowItems(pages, currentPage, pagesToShow)).toStrictEqual(output);
     });
+
+    describe("validate paginator on 1st and last currentPage", () => {
+        it("should don't push page 1 to array if currentPage equal 1", () => {
+            const currentPage = 1;
+
+            const output = [...pages.slice(0, pagesToShow), pages.length];
+            expect(calcShowItems(pages, currentPage, pagesToShow)).toStrictEqual(output);
+        });
+        it("should don't push last page to array if currentPage equal last page", () => {
+            const currentPage = 100;
+
+            const output = [1, ...pages.slice(-pagesToShow)];
+            expect(calcShowItems(pages, currentPage, pagesToShow)).toStrictEqual(output);
+        });
+    })
+
+    describe("validate paginator for doubling", () => {
+        it("should don't doubling 1st page if currentPage is 2", () => {
+            const currentPage = 2;
+
+            const output = [1, ...pages.slice(currentPage - 1, currentPage - 1 + pagesToShow), pages.length];
+            expect(calcShowItems(pages, currentPage, pagesToShow)).toStrictEqual(output);
+        });
+        it("should don't doubling last page if currentPage is lastPage - 1", () => {
+            const currentPage = pages.length - 1;
+
+            const output = [1, ...pages.slice(-pagesToShow)];
+            expect(calcShowItems(pages, currentPage, pagesToShow)).toStrictEqual(output);
+        });
+    })
 })

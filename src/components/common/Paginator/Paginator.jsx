@@ -3,7 +3,7 @@ import React from 'react';
 import style from './Paginator.module.scss';
 import {calcShowItems} from "../../../utils/paginator";
 
-const Paginator = ({className = '', totalItemsCount, pageSize, currentPage, onChangePage}) => {
+const Paginator = ({className = '', totalItemsCount, pageSize, currentPage, onChangePage, pagesToShow}) => {
     const pagesMemo = React.useMemo(() => {
         const pagesCount = Math.ceil(totalItemsCount / pageSize);
         const pages = [];
@@ -15,7 +15,7 @@ const Paginator = ({className = '', totalItemsCount, pageSize, currentPage, onCh
         return pages;
     }, [totalItemsCount, pageSize])
 
-    const showItems = calcShowItems(pagesMemo, currentPage);
+    const showItems = calcShowItems(pagesMemo, currentPage, pagesToShow);
 
     return (
         <div className={`${style.paginator} ${className}`}>

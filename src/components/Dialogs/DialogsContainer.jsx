@@ -7,16 +7,19 @@ import {compose} from "redux";
 
 const DialogsContainer = (props) => {
     return (
-        <Dialogs {...props}/>
+        <Dialogs dialogs={props.dialogs}
+                 messages={props.messages}
+                 addMessage={props.addMessage}/>
     );
 };
 
 const mapStateToProps = (state) => {
     return {
+        dialogs: state.dialogsPage.dialogs,
+        messages: state.dialogsPage.messages,
         state: state.dialogsPage
     }
 }
-
 export default compose(
     withAuthRedirect,
     connect(mapStateToProps, {addMessage})

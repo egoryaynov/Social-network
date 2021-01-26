@@ -18,11 +18,7 @@ const prepareDataForRequest = ({lookingForAJob, lookingForAJobDescription, fullN
 const EditProfileInfo = ({profile, updateProfileInfo, deactivateEditMode}) => {
     const formik = useFormik({
         initialValues: {
-            lookingForAJob: profile.lookingForAJob,
-            lookingForAJobDescription: profile.lookingForAJobDescription,
-            fullName: profile.fullName,
-            aboutMe: profile.aboutMe,
-            contacts: {...profile.contacts}
+            ...profile
         },
         onSubmit: async (values, {setStatus}) => {
             try {

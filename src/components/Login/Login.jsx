@@ -1,7 +1,6 @@
 import React from 'react';
 import FormLogin from './FormLogin/FormLogin';
 
-import './Login.scss';
 import {connect} from "react-redux";
 import {login} from "../../redux/authReducer";
 import {Redirect} from "react-router-dom";
