@@ -1,7 +1,11 @@
 export const calcShowItems = (pages, currentPage, pagesToShow) => {
-    const showPages = getShowPages(pages, currentPage, pagesToShow);
+    if (pages.length === 0) return [];
 
-    return assemblyPages(pages, currentPage, showPages, pagesToShow);
+    const showPages = getShowPages(pages, currentPage, pagesToShow);
+    const result = [1, ...showPages, pages.length];
+
+    // Return array of page numbers (first and last page fixed)
+    return Array.from(new Set(result));
 }
 
 const getShowPages = (pages, currentPage, pagesToShow) => {
@@ -13,16 +17,4 @@ const getShowPages = (pages, currentPage, pagesToShow) => {
     }
 
     return showPages;
-}
-const assemblyPages = (pages, currentPage, showPages, pagesToShow) => {
-    let result;
-    if (currentPage === 1) {
-        result = [...showPages, pages.length];
-    } else if ((currentPage === pages.length) || (pages.length - currentPage < pagesToShow)) {
-        result = [1, ...showPages];
-    } else {
-        result = [1, ...showPages, pages.length];
-    }
-
-    return result;
 }

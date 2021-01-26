@@ -1,6 +1,6 @@
-import {assemblyPages, calcShowItems} from "./paginator";
+import {calcShowItems} from "./paginator";
 
-describe("Validate utilities for validator", () => {
+describe("Validate utilities for paginator", () => {
     const pagesToShow = 20;
     const pages = [];
     for (let i = 1; i < 100; i++) {
@@ -14,7 +14,7 @@ describe("Validate utilities for validator", () => {
         expect(calcShowItems(pages, currentPage, pagesToShow)).toStrictEqual(output);
     });
 
-    describe("validate paginator on 1st and last currentPage", () => {
+    describe("validate on 1st and last currentPage position", () => {
         it("should don't push page 1 to array if currentPage equal 1", () => {
             const currentPage = 1;
 
@@ -29,7 +29,7 @@ describe("Validate utilities for validator", () => {
         });
     })
 
-    describe("validate paginator for doubling", () => {
+    describe("validate for doubling", () => {
         it("should don't doubling 1st page if currentPage is 2", () => {
             const currentPage = 2;
 
