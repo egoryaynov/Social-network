@@ -1,0 +1,54 @@
+.image {
+  width: 500px;
+}
+
+.button {
+  margin: 20px 10px 20px 0;
+}
+
+.contacts {
+  padding-left: 15px;
+
+  &Item {
+    margin-bottom: 10px;
+  }
+
+  &Wrapper {
+    margin-bottom: 10px;
+  }
+}
+
+.statusHelper {
+  color: #c15507;
+}
+
+.job {
+  margin-bottom: 20px;
+
+  &Status {
+    padding-bottom: 20px;
+
+    &True {
+      color: green;
+    }
+
+    &False {
+      color: red;
+    }
+  }
+}
+
+.username {
+  font-size: 30px;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.editMode {
+  margin-bottom: 20px;
+}
+
+.aboutMe {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}

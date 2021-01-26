@@ -1,62 +1,63 @@
 import React from 'react';
 
-import './ProfileInfo.scss';
+import './ProfileInfo.module.scss';
 import ProfileStatus from '../ProfileStatus/ProfileStatus';
 
-const ProfileInfo = ({profile, status, updateStatus, authUserID, savePhoto}) => {
-        let contacts = [];
-        for (let social in profile.contacts) {
-            if (profile.contacts[social] !== null) {
-                contacts.push({
-                    link: profile.contacts[social],
-                    social
-                })
-            }
-        }
+import style from './ProfileInfo.module.scss';
+import EditProfileInfo from "./EditProfileInfo";
+import ShowProfileInfo from "./ShowProfileInfo";
+import {getNotNullContacts} from "../../../utils/profile";
 
-        const onProfilePhotoSelected = (event) => {
-            savePhoto(event.target.files[0]);
-        }
+const ProfileInfo = ({profile, status, updateStatus, authUserID, savePhoto, updateProfileInfo}) => {
+    const [editMode, setEditMode] = React.useState(false);
 
-        return (
-            <div className='profile__info'>
-                {profile.photos.large === null
+    const onProfilePhotoSelected = (event) => {
+        savePhoto(event.target.files[0]);
+    };
+
+    const contacts = React.useMemo(() => {
+        return getNotNullContacts(profile.contacts);
+    }, [profile.contacts]);
+
+    const onClickEdit = () => {
+        setEditMode(true);
+    };
+    const deactivateEditMode = () => {
+        setEditMode(false);
+    };
+
+    return (
+        <div>
+            <div>
+                {!profile.photos.large
                     ? 'User not upload photo'
-                    : <img className='profile__image' src={profile.photos.large} alt="Profile"/>
+                    : <img className={style.profileImage} src={profile.photos.large} alt="Profile"/>
                 }
-                {authUserID === profile.userId
-                    ? <div><input type="file" onChange={onProfilePhotoSelected}/></div>
-                    : null}
 
-                <h3>{profile.fullName}</h3>
+                {authUserID === profile.userId &&
+                <div>
+                    <input type="file" onChange={onProfilePhotoSelected}/>
+                </div>
+                }
 
+                <h3 className={style.username}>{profile.fullName}</h3>
+                <b className={style.statusHelper}>Status (You can change that if you click on the message): </b>
                 <ProfileStatus status={status} updateStatus={updateStatus}/>
-
-                <h2>Я в соц. сетях:</h2>
-                <div className="profile__contacts">
-                    {contacts.map((contact) => (
-                        <a href={contact.link.includes('https://')
-                            ? contact.link
-                            : `https://${contact.link}`}
-                           className='profile__contacts-item'>{contact.social}</a>)
-                    )}
-                </div>
-                <div className="profile__job">
-                    <h2>Интересуют ли вакансии по работе?</h2>
-                    <div className="profile__job-status">
-                    <span
-                        className={`${profile.lookingForAJob
-                            ? 'profile__job-status--true'
-                            : 'profile__job-status--false'}`}>
-                        <b>{profile.lookingForAJob ? 'Да!' : 'Нет :('}</b>
-                    </span>
-                    </div>
-                    <span
-                        className='profile__job-description'>{profile.lookingForAJobDescription ? profile.lookingForAJobDescription : ''}</span>
-                </div>
             </div>
-        );
-    }
-;
+
+            <p><b>Обо мне: </b>{profile.aboutMe}</p>
+
+            {authUserID === profile.userId && !editMode &&
+            <button className={style.button} onClick={onClickEdit}>Edit profile info</button>}
+
+
+            {editMode
+                ? <EditProfileInfo profile={profile} updateProfileInfo={updateProfileInfo}
+                                   deactivateEditMode={deactivateEditMode}/>
+                : <ShowProfileInfo profile={profile} contacts={contacts}/>}
+        </div>
+    );
+};
+
 
 export default ProfileInfo;
