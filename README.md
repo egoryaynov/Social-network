@@ -1,8 +1,18 @@
 # Simple social network
 
-[link-to-tech](#technologies)
+1. [About project](#about)
+1. [Technologies](#technologies)
+1. [Contacts](#contacts)
 
-### <a name="technologies">Technologies</a>
+------------
+
+## <a name="about">About project</a>
+
+This is my first project on React, Redux. In development i used next technologies
+
+------------
+
+## <a name="technologies">Technologies</a>
 
 * **React**
     * react-router-dom *(Switch, Route, Redirect, NavLink, withRouter HOC)*
@@ -16,3 +26,5 @@
 * **Jest**
 * **SCSS**
 * **CSS Modules**
+
+## <a name="contacts">Contacts</a>
