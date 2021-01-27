@@ -1,4 +1,4 @@
-# Simple social network
+# Social network
 
 1. [About project](#about)
 1. [Technologies](#technologies)
@@ -8,7 +8,9 @@
 
 ## <a name="about">About project</a>
 
-This is my first project on React, Redux. In development i used next technologies
+This is my first project on **React, Redux**. The project is simple *Social Network*, where you can *see profiles of
+users, edit your profile, send post and message* (at the moment these functions are not fully functional). Also i have
+implemented **authorization** (you can login and logout)
 
 ------------
 
@@ -27,4 +29,11 @@ This is my first project on React, Redux. In development i used next technologie
 * **SCSS**
 * **CSS Modules**
 
+------------
+
 ## <a name="contacts">Contacts</a>
+
+contacts for communication:
+> **telegram:** <a href="https://t.me/egoryaynov">@egoryaynov</a>
+>
+> **email:** <a href="mailto:egor.goryaynov02@gmail.com">egor.goryaynov02@gmail.com</a>
