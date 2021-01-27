@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './Dialogs.module.scss';
-
 import DialogItem from "./DialogItem/DialogItem";
 import MessageItem from "./MessageItem/MessageItem";
 import DialogsForm from "./DialogsForm/DialogsForm";
