@@ -2,7 +2,7 @@ import React from 'react';
 import {useFormik} from "formik";
 import ErrorMessage from "../../common/ErrorMessage/ErrorMessage";
 import style from "./ProfileInfo.module.scss";
-import {ProfileType, UpdateProfileInfoPayloadType} from "../../../types/types";
+import {ContactsType, ProfileType, UpdateProfileInfoPayloadType} from "../../../types/types";
 
 const prepareDataForRequest = (dataForRequest: UpdateProfileInfoPayloadType): UpdateProfileInfoPayloadType => {
     let requestPayload: UpdateProfileInfoPayloadType = {
@@ -79,8 +79,8 @@ const EditProfileInfo: React.FC<PropsType> = ({profile, updateProfileInfo, deact
                             name={`contacts.${social}`}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            // @ts-ignore
-                            value={formik.values.contacts[social]}/>
+                            /* @ts-ignore */
+                            value={formik.values.contacts[social as keyof ContactsType]}/>
                     </div>
                 })}
             </div>

@@ -88,8 +88,7 @@ const FormLogin: React.FC<PropsType> = ({login, captchaUrl}) => {
 
             {!!formik.status && <ErrorMessage className={styles.errorMessage}>{formik.status}</ErrorMessage>}
 
-            {/* @ts-ignore */}
-            <button type="submit" disabled={formik.isSubmitting || formik.errors.email || formik.errors.password}>
+            <button type="submit" disabled={formik.isSubmitting || !!formik.errors.email || !!formik.errors.password}>
                 Submit
             </button>
         </form>

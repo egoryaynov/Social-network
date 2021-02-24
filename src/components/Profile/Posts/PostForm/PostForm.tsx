@@ -35,8 +35,7 @@ const PostForm: React.FC<PropsType> = ({addPost}) => {
             {formik.errors.postText && formik.touched.postText &&
             <ErrorMessage className=''>{formik.errors.postText}</ErrorMessage>}
 
-            {/* @ts-ignore */}
-            <button type="submit" disabled={formik.isSubmitting || formik.errors.postText}>
+            <button type="submit" disabled={formik.isSubmitting || !!formik.errors.postText}>
                 Submit
             </button>
         </form>

@@ -30,9 +30,8 @@ const DialogsForm: React.FC<PropsType> = ({addMessage}) => {
             />
             {formik.errors.message && formik.touched.message &&
             <ErrorMessage className='dialogs__text-error'>{formik.errors.message}</ErrorMessage>}
-            
-            { /* @ts-ignore */}
-            <button type="submit" disabled={formik.isSubmitting || formik.errors.message}>
+
+            <button type="submit" disabled={formik.isSubmitting || !!formik.errors.message}>
                 Submit
             </button>
         </form>

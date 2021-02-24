@@ -12,7 +12,7 @@ const initialState = {
 };
 export type InitialStateType = typeof initialState;
 
-const sidebarReducer = (state = initialState, action: any) => {
+const sidebarReducer = (state = initialState, action: unknown) => {
     return state;
 };
 
