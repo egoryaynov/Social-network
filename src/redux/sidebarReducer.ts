@@ -1,7 +1,4 @@
-type FriendType = {
-    id: number,
-    name: string
-}
+import {FriendType} from "../types/types";
 
 const initialState = {
     friends: [

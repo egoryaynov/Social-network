@@ -3,7 +3,7 @@ import {authorization} from "./authReducer";
 const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS';
 
 const initialState = {
-    initialized: false as boolean
+    initialized: false
 }
 export type InitialStateType = typeof initialState;
 

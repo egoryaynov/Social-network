@@ -1,5 +1,10 @@
 import {profileAPI} from "../api/api";
-import {ContactsType, PhotosType, PostType, ProfileType} from "../types/types";
+import {
+    PhotosType,
+    PostType,
+    ProfileType,
+    UpdateProfileInfoPayloadType
+} from "../types/types";
 
 const ADD_POST = 'profile/ADD_POST';
 const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
@@ -94,18 +99,12 @@ export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessActionType
     photos
 });
 
-type ProfileInfoForRequestType = {
-    lookingForAJob?: boolean
-    lookingForAJobDescription?: string
-    fullName?: string
-    aboutMe?: string
-    contacts: ContactsType
-}
+
 type UpdateProfileSuccessType = {
     type: typeof UPDATE_PROFILE_SUCCESS,
-    profileInfo: ProfileInfoForRequestType
+    profileInfo: UpdateProfileInfoPayloadType
 }
-export const updateProfileSuccess = (profileInfo: ProfileInfoForRequestType): UpdateProfileSuccessType => ({
+export const updateProfileSuccess = (profileInfo: UpdateProfileInfoPayloadType): UpdateProfileSuccessType => ({
     type: UPDATE_PROFILE_SUCCESS,
     profileInfo
 });
@@ -130,7 +129,7 @@ export const updateStatus = (status: string) => async (dispatch: any) => {
     }
 }
 
-export const savePhoto = (photoFile: string) => async (dispatch: any) => {
+export const savePhoto = (photoFile: File) => async (dispatch: any) => {
     const response = await profileAPI.savePhoto(photoFile);
 
     if (response.data.resultCode === 0) {
@@ -138,7 +137,7 @@ export const savePhoto = (photoFile: string) => async (dispatch: any) => {
     }
 }
 
-export const updateProfileInfo = (profileInfo: ProfileInfoForRequestType) => async (dispatch: any) => {
+export const updateProfileInfo = (profileInfo: UpdateProfileInfoPayloadType) => async (dispatch: any) => {
     const data = await profileAPI.updateProfileInfo(profileInfo);
 
     if (data.resultCode === 0) {

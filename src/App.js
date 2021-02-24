@@ -38,7 +38,7 @@ class App extends Component {
                         <Route path='/dialogs' render={() =>
                             <DialogsContainer/>
                         }/>
-                        <Route path='/profile/:userID?' render={withSuspense(ProfileContainer)}/>
+                        <Route path='/profile/:profileUserId?' render={withSuspense(ProfileContainer)}/>
                         <Route path='/news' component={News}/>
                         <Route path='/music' component={Music}/>
                         <Route path='/settings' component={Settings}/>

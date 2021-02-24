@@ -20,6 +20,7 @@ export type PhotosType = {
 }
 export type ProfileType = {
     userId: number
+    aboutMe: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
@@ -33,4 +34,32 @@ export type UserType = {
     status: string
     photos: PhotosType
     followed: boolean
+}
+
+export type FriendType = {
+    id: number,
+    name: string
+}
+
+export type DialogType = {
+    id: number,
+    name: string
+}
+export type MessageType = {
+    id: number,
+    text: string
+}
+
+export type LoginInfoType = {
+    captcha: string | null,
+    email: string,
+    isRememberMe: boolean,
+    password: string
+}
+export type UpdateProfileInfoPayloadType = {
+    lookingForAJob?: boolean
+    lookingForAJobDescription?: string
+    fullName?: string
+    aboutMe?: string
+    contacts: ContactsType
 }

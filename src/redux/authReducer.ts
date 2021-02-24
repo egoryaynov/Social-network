@@ -1,4 +1,5 @@
 import {authAPI, securityAPI} from "../api/api";
+import {LoginInfoType} from "../types/types";
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 const GET_CAPTCHA_SUCCESS = 'auth/GET_CAPTCHA_SUCCESS';
@@ -7,7 +8,7 @@ const initialState = {
     userID: null as number | null,
     login: null as string | null,
     email: null as string | null,
-    isAuth: false as boolean,
+    isAuth: false,
     captchaUrl: null as string | null
 }
 export type InitialStateType = typeof initialState;
@@ -68,12 +69,6 @@ export const getCaptcha = () => async (dispatch: any) => {
     dispatch(getCaptchaSuccess(data.url));
 }
 
-type LoginInfoType = {
-    captcha: string | null,
-    email: string,
-    isRememberMe: boolean,
-    password: string
-}
 export const login = (loginInfo: LoginInfoType) => async (dispatch: any) => {
     let data = await authAPI.login(loginInfo);
 
