@@ -1,13 +1,11 @@
 import {authorization} from "./authReducer";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./store";
+import {BaseThunkType} from "./store";
 
 const INITIALIZED_SUCCESS = 'app/INITIALIZED_SUCCESS';
 
 const initialState = {
     initialized: false
 }
-export type InitialStateType = typeof initialState;
 
 const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
@@ -22,14 +20,10 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
     }
 }
 
-type ActionsTypes = InitializedSuccessActionType
 
-type InitializedSuccessActionType = {
-    type: typeof INITIALIZED_SUCCESS
-}
 const initializedSuccess = (): InitializedSuccessActionType => ({type: INITIALIZED_SUCCESS})
 
-export const initialize = (): ThunkAction<void, AppStateType, unknown, ActionsTypes> => {
+export const initialize = (): ThunkType => {
     return (dispatch) => {
         Promise.all([dispatch(authorization())])
             .then(() => dispatch(initializedSuccess()))
@@ -37,3 +31,10 @@ export const initialize = (): ThunkAction<void, AppStateType, unknown, ActionsTy
 }
 
 export default dialogsReducer;
+
+export type InitialStateType = typeof initialState;
+type ActionsTypes = InitializedSuccessActionType
+type InitializedSuccessActionType = {
+    type: typeof INITIALIZED_SUCCESS
+}
+type ThunkType = BaseThunkType<ActionsTypes, unknown>

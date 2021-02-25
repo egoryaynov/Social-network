@@ -1,7 +1,7 @@
 import {ResultCodesEnum, ResultCodesForCaptcha} from "../api/api";
 import {LoginInfoType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionsTypes} from "./store";
+import {AppStateType, BaseThunkType, InferActionsTypes} from "./store";
 import {securityAPI} from "../api/security-api";
 import {authAPI} from "../api/auth-api";
 
@@ -12,17 +12,16 @@ const initialState = {
     isAuth: false,
     captchaUrl: null as string | null
 }
-export type InitialStateType = typeof initialState;
 
 const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case 'SET_USER_DATA': {
+        case 'auth/SET_USER_DATA': {
             return {
                 ...state,
                 ...action.payload
             }
         }
-        case 'GET_CAPTCHA_SUCCESS': {
+        case 'auth/GET_CAPTCHA_SUCCESS': {
             return {
                 ...state,
                 captchaUrl: action.captchaUrl
@@ -33,20 +32,16 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialStateTy
     }
 }
 
-type ActionsTypes = InferActionsTypes<typeof actions>
-
 const actions = {
     setUserData: (email: string | null, id: number | null, login: string | null, isAuth: boolean) => ({
-        type: 'SET_USER_DATA',
+        type: 'auth/SET_USER_DATA',
         payload: {userID: id, login, email, isAuth}
     } as const),
     getCaptchaSuccess: (captchaUrl: string) => ({
-        type: 'GET_CAPTCHA_SUCCESS',
+        type: 'auth/GET_CAPTCHA_SUCCESS',
         captchaUrl
     } as const)
 }
-
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export const authorization = (): ThunkType => {
     return async (dispatch) => {
@@ -93,3 +88,7 @@ export const logout = (): ThunkType => {
 }
 
 export default authReducer;
+
+export type InitialStateType = typeof initialState;
+type ActionsTypes = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsTypes>

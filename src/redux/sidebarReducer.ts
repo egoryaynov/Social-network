@@ -10,10 +10,11 @@ const initialState = {
         {id: 6, name: 'Dmitry'},
     ] as Array<FriendType>
 };
-export type InitialStateType = typeof initialState;
 
 const sidebarReducer = (state = initialState, action: unknown) => {
     return state;
 };
 
 export default sidebarReducer;
+
+export type InitialStateType = typeof initialState;

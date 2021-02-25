@@ -17,7 +17,6 @@ const initialState = {
         {id: 4, name: 'Stanislav'},
     ] as Array<DialogType>,
 }
-export type InitialStateType = typeof initialState;
 
 const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
@@ -37,15 +36,16 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
     }
 }
 
-type ActionsTypes = AddMessageActionType
-
-type AddMessageActionType = {
-    type: typeof ADD_MESSAGE,
-    message: string
-}
 export const addMessage = (message: string): AddMessageActionType => ({
     type: ADD_MESSAGE,
     message
 });
 
 export default dialogsReducer;
+
+export type InitialStateType = typeof initialState;
+type ActionsTypes = AddMessageActionType
+type AddMessageActionType = {
+    type: typeof ADD_MESSAGE,
+    message: string
+}

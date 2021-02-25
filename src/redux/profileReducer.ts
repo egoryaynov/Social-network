@@ -6,7 +6,7 @@ import {
     UpdateProfileInfoPayloadType
 } from "../types/types";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionsTypes} from "./store";
+import {AppStateType, BaseThunkType, InferActionsTypes} from "./store";
 import {profileAPI} from "../api/profile-api";
 
 const initialState = {
@@ -20,11 +20,10 @@ const initialState = {
     profile: null as ProfileType | null,
     status: ''
 }
-export type InitialStateType = typeof initialState;
 
 const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case 'ADD_POST': {
+        case 'profile/ADD_POST': {
             let newPostText = action.postText;
 
             return {
@@ -35,25 +34,25 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
                 ]
             }
         }
-        case 'SET_USER_PROFILE': {
+        case 'profile/SET_USER_PROFILE': {
             return {
                 ...state,
                 profile: action.profile
             }
         }
-        case 'SET_STATUS': {
+        case 'profile/SET_STATUS': {
             return {
                 ...state,
                 status: action.status
             }
         }
-        case 'SAVE_PHOTO_SUCCESS': {
+        case 'profile/SAVE_PHOTO_SUCCESS': {
             return {
                 ...state,
                 profile: {...state.profile, photos: action.photos} as ProfileType
             }
         }
-        case 'UPDATE_PROFILE_SUCCESS': {
+        case 'profile/UPDATE_PROFILE_SUCCESS': {
             return {
                 ...state,
                 profile: {...state.profile, ...action.profileInfo} as ProfileType
@@ -64,33 +63,29 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
     }
 }
 
-type ActionsTypes = InferActionsTypes<typeof actions>
-
 export const actions = {
     addPost: (postText: string) => ({
-        type: 'ADD_POST',
+        type: 'profile/ADD_POST',
         postText
     } as const),
     setUserProfile: (profile: ProfileType | null) => ({
-        type: 'SET_USER_PROFILE',
+        type: 'profile/SET_USER_PROFILE',
         profile
     } as const),
     clearUserProfile: () => actions.setUserProfile(null),
     setStatus: (status: string) => ({
-        type: 'SET_STATUS',
+        type: 'profile/SET_STATUS',
         status
     } as const),
     savePhotoSuccess: (photos: PhotosType) => ({
-        type: 'SAVE_PHOTO_SUCCESS',
+        type: 'profile/SAVE_PHOTO_SUCCESS',
         photos
     } as const),
     updateProfileSuccess: (profileInfo: UpdateProfileInfoPayloadType) => ({
-        type: 'UPDATE_PROFILE_SUCCESS',
+        type: 'profile/UPDATE_PROFILE_SUCCESS',
         profileInfo
     } as const)
 }
-
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export const getUserProfile = (userID: number): ThunkType => {
     return async (dispatch) => {
@@ -141,3 +136,7 @@ export const updateProfileInfo = (profileInfo: UpdateProfileInfoPayloadType): Th
 }
 
 export default profileReducer;
+
+export type InitialStateType = typeof initialState;
+type ActionsTypes = InferActionsTypes<typeof actions>
+type ThunkType = BaseThunkType<ActionsTypes>
