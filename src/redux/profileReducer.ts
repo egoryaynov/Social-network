@@ -1,4 +1,4 @@
-import {profileAPI} from "../api/api";
+import {profileAPI, ResultCodesEnum} from "../api/api";
 import {
     PhotosType,
     PostType,
@@ -137,9 +137,9 @@ export const getStatus = (userID: number): ThunkType => {
 
 export const updateStatus = (status: string): ThunkType => {
     return async (dispatch) => {
-        const response = await profileAPI.updateStatus(status);
+        const data = await profileAPI.updateStatus(status);
 
-        if (response.data.data.resultCode === 0) {
+        if (data.data.resultCode === ResultCodesEnum.Success) {
             dispatch(setStatus(status));
         }
     }
@@ -149,7 +149,7 @@ export const savePhoto = (photoFile: File): ThunkType => {
     return async (dispatch) => {
         const response = await profileAPI.savePhoto(photoFile);
 
-        if (response.data.resultCode === 0) {
+        if (response.data.resultCode === ResultCodesEnum.Success) {
             dispatch(savePhotoSuccess(response.data.data.photos));
         }
     }
@@ -159,7 +159,7 @@ export const updateProfileInfo = (profileInfo: UpdateProfileInfoPayloadType): Th
     return async (dispatch) => {
         const data = await profileAPI.updateProfileInfo(profileInfo);
 
-        if (data.resultCode === 0) {
+        if (data.resultCode === ResultCodesEnum.Success) {
             dispatch(updateProfileSuccess((profileInfo)));
         } else {
             throw new Error(data.messages[0])
