@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
+import {actions} from '../../redux/profileReducer'
+const {clearUserProfile} = actions;
+
 import {
     getStatus,
     getUserProfile,
     updateStatus,
-    clearUserProfile,
     savePhoto,
     updateProfileInfo
 } from "../../redux/profileReducer";

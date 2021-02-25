@@ -1,7 +1,10 @@
 import React from "react";
 import Posts from "./Posts";
 
-import {addPost} from "../../../redux/profileReducer";
+import {actions} from '../../../redux/profileReducer'
+
+const {addPost} = actions
+
 import {connect} from "react-redux";
 import {PostType} from "../../../types/types";
 import {AppStateType} from "../../../redux/store";

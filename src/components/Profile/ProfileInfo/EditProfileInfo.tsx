@@ -33,11 +33,11 @@ type ValuesType = {
 const EditProfileInfo: React.FC<PropsType> = ({profile, updateProfileInfo, deactivateEditMode}) => {
     const formik: FormikProps<ValuesType> = useFormik<ValuesType>({
         initialValues: {
-            aboutMe: profile.aboutMe,
+            aboutMe: profile.aboutMe || '',
             contacts: profile.contacts,
             fullName: profile.fullName,
             lookingForAJob: profile.lookingForAJob,
-            lookingForAJobDescription: profile.lookingForAJobDescription
+            lookingForAJobDescription: profile.lookingForAJobDescription || ''
         },
         onSubmit: async (values, {setStatus}) => {
             try {

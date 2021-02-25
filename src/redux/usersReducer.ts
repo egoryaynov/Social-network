@@ -1,15 +1,7 @@
 import {usersAPI} from "../api/api";
 import {UserType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./store";
-
-const FOLLOW_TOGGLE = 'FOLLOW_TOGGLE';
-const SET_USERS = 'SET_USERS';
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const PAGE_CHANGE = 'PAGE_CHANGE';
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const TOGGLE_FOLLOW_FETCHING = 'TOGGLE_FOLLOW_FETCHING';
+import {AppStateType, InferActionsTypes} from "./store";
 
 const initialState = {
     users: [] as Array<UserType>,
@@ -24,7 +16,7 @@ export type InitialState = typeof initialState;
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialState => {
     switch (action.type) {
-        case FOLLOW_TOGGLE: {
+        case 'FOLLOW_TOGGLE': {
             return {
                 ...state,
                 users: state.users.map(user => {
@@ -34,37 +26,31 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialState 
                 })
             }
         }
-        case SET_USERS: {
+        case 'SET_USERS': {
             return {
                 ...state,
                 users: [...action.users]
             }
         }
-        case SET_TOTAL_USERS_COUNT: {
+        case 'SET_TOTAL_USERS_COUNT': {
             return {
                 ...state,
                 totalUsersCount: action.totalUsersCount
             }
         }
-        case SET_CURRENT_PAGE: {
+        case 'SET_CURRENT_PAGE': {
             return {
                 ...state,
                 currentPage: action.newCurrentPage
             }
         }
-        case PAGE_CHANGE: {
-            return {
-                ...state,
-                users: action.users
-            }
-        }
-        case TOGGLE_IS_FETCHING: {
+        case 'TOGGLE_IS_FETCHING': {
             return {
                 ...state,
                 isFetching: action.isFetching
             }
         }
-        case TOGGLE_FOLLOW_FETCHING: {
+        case 'TOGGLE_FOLLOW_FETCHING': {
             return {
                 ...state,
                 isFollowsFetching: action.isFetching
@@ -77,99 +63,50 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialState 
     }
 }
 
-type ActionsTypes = FollowToggleActionType
-    | SetUsersActionType
-    | SetTotalUsersCountActionType
-    | SetCurrentPageActionType
-    | PageChangeActionType
-    | ToggleIsFetchingActionType
-    | ToggleFollowFetchingActionType
+type ActionsTypes = InferActionsTypes<typeof actions>
 
-type FollowToggleActionType = {
-    type: typeof FOLLOW_TOGGLE
-    userID: number
+const actions = {
+    followToggle: (userID: number) => ({type: 'FOLLOW_TOGGLE', userID} as const),
+    setUsers: (users: Array<UserType>) => ({type: 'SET_USERS', users} as const),
+    setTotalUsersCount: (totalUsersCount: number) => ({type: 'SET_TOTAL_USERS_COUNT', totalUsersCount} as const),
+    setCurrentPage: (newCurrentPage: number) => ({type: 'SET_CURRENT_PAGE', newCurrentPage} as const),
+    toggleIsFetching: (isFetching: boolean) => ({type: 'TOGGLE_IS_FETCHING', isFetching} as const),
+    toggleFollowFetching: (isFetching: boolean, userID: number) => ({
+        type: 'TOGGLE_FOLLOW_FETCHING',
+        isFetching,
+        userID
+    } as const)
 }
-export const followToggle = (userID: number): FollowToggleActionType => ({type: FOLLOW_TOGGLE, userID})
-
-type SetUsersActionType = {
-    type: typeof SET_USERS
-    users: Array<UserType>
-}
-export const setUsers = (users: Array<UserType>): SetUsersActionType => ({type: SET_USERS, users})
-
-type SetTotalUsersCountActionType = {
-    type: typeof SET_TOTAL_USERS_COUNT
-    totalUsersCount: number
-}
-export const setTotalUsersCount = (totalUsersCount: number): SetTotalUsersCountActionType => ({
-    type: SET_TOTAL_USERS_COUNT,
-    totalUsersCount
-})
-
-type SetCurrentPageActionType = {
-    type: typeof SET_CURRENT_PAGE
-    newCurrentPage: number
-}
-export const setCurrentPage = (newCurrentPage: number): SetCurrentPageActionType => ({
-    type: SET_CURRENT_PAGE,
-    newCurrentPage
-})
-
-type PageChangeActionType = {
-    type: typeof PAGE_CHANGE
-    users: Array<UserType>
-}
-export const pageChange = (users: Array<UserType>): PageChangeActionType => ({type: PAGE_CHANGE, users})
-
-type ToggleIsFetchingActionType = {
-    type: typeof TOGGLE_IS_FETCHING
-    isFetching: boolean
-}
-export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionType => ({
-    type: TOGGLE_IS_FETCHING,
-    isFetching
-})
-
-type ToggleFollowFetchingActionType = {
-    type: typeof TOGGLE_FOLLOW_FETCHING
-    isFetching: boolean
-    userID: number
-}
-export const toggleFollowFetching = (isFetching: boolean, userID: number): ToggleFollowFetchingActionType => ({
-    type: TOGGLE_FOLLOW_FETCHING,
-    isFetching,
-    userID
-})
 
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export const requestUsers = (page: number, pageSize: number): ThunkType => {
     return async (dispatch) => {
-        dispatch(toggleIsFetching(true));
+        dispatch(actions.toggleIsFetching(true));
 
         let data = await usersAPI.getUsers(page, pageSize)
 
-        dispatch(setCurrentPage(page))
-        dispatch(toggleIsFetching(false));
-        dispatch(setUsers(data.items));
-        dispatch(setTotalUsersCount(data.totalCount));
+        dispatch(actions.setCurrentPage(page))
+        dispatch(actions.toggleIsFetching(false));
+        dispatch(actions.setUsers(data.items));
+        dispatch(actions.setTotalUsersCount(data.totalCount));
     }
 }
 
 export const onFollowUser = (userID: number, isFollow: boolean): ThunkType => {
     return async (dispatch) => {
-        dispatch(toggleFollowFetching(true, userID));
+        dispatch(actions.toggleFollowFetching(true, userID));
 
         if (isFollow) {
             await usersAPI.deleteFollow(userID)
 
-            dispatch(followToggle(userID))
-            dispatch(toggleFollowFetching(false, userID))
+            dispatch(actions.followToggle(userID))
+            dispatch(actions.toggleFollowFetching(false, userID))
         } else {
             await usersAPI.postFollow(userID)
 
-            dispatch(followToggle(userID))
-            dispatch(toggleFollowFetching(false, userID))
+            dispatch(actions.followToggle(userID))
+            dispatch(actions.toggleFollowFetching(false, userID))
         }
     }
 }

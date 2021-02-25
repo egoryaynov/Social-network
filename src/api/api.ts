@@ -1,5 +1,12 @@
 import axios from "axios";
-import {LoginInfoType, ProfileType, UpdateProfileInfoPayloadType, UserType} from "../types/types";
+import {
+    ContactsType,
+    LoginInfoType,
+    PhotosType,
+    ProfileType,
+    UpdateProfileInfoPayloadType,
+    UserType
+} from "../types/types";
 
 const API_KEY = '57abead5-1e9d-4267-834c-63b518df6e79';
 
@@ -47,11 +54,6 @@ export const usersAPI = {
     }
 }
 
-type GetProfileResponse = {
-    data: ProfileType
-    resultCode: ResultCodesEnum
-    messages: Array<string>
-}
 type UpdateStatusResponse = {
     data: {}
     resultCode: ResultCodesEnum
@@ -74,7 +76,7 @@ type UpdateProfileInfoResponse = {
 }
 export const profileAPI = {
     getUserProfile: (userID: number) => {
-        return instance.get<GetProfileResponse>(`profile/${userID}`).then(response => response.data.data)
+        return instance.get<ProfileType>(`profile/${userID}`).then(response => response.data)
     },
     getStatus: (userID: number) => {
         return instance.get<string>(`profile/status/${userID}`).then(response => response.data)

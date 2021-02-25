@@ -51,7 +51,6 @@ const ProfileInfo: React.FC<PropsType> = ({
     };
 
     if (profile === null) return <ErrorMessage className=''/>
-
     return (
         <div>
             <div>

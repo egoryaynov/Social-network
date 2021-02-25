@@ -15,7 +15,6 @@ let rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer
 });
-export type AppStateType = ReturnType<typeof rootReducer>;
 
 let store = createStore(rootReducer,
     compose(
@@ -24,4 +23,10 @@ let store = createStore(rootReducer,
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
 )
+
+export type AppStateType = ReturnType<typeof rootReducer>;
+
+export type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
+export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
+
 export default store;

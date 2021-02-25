@@ -1,9 +1,7 @@
 import {connect} from "react-redux";
 import React from "react";
 
-import {
-    followToggle, requestUsers, onFollowUser, pageChange, toggleFollowFetching
-} from "../../redux/usersReducer";
+import {requestUsers, onFollowUser} from "../../redux/usersReducer";
 import Users from "./Users";
 import {
     getCurrentPage,
@@ -27,9 +25,6 @@ type MapStateToPropsType = {
     pagesToShow: number
 }
 type MapDispatchToPropsType = {
-    followToggle: (userID: number) => void
-    pageChange: (users: Array<UserType>) => void
-    toggleFollowFetching: (isFetching: boolean, userID: number) => void
     onFollowUser: (userID: number, isFollow: boolean) => void
     requestUsers: (currentPage: number, pageSize: number) => void
 }
@@ -82,6 +77,6 @@ export default compose(
     withRouter,
     connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(
         mapStateToProps,
-        {followToggle, pageChange, toggleFollowFetching, requestUsers, onFollowUser}
+        {requestUsers, onFollowUser}
     )
 )(UsersContainer)
