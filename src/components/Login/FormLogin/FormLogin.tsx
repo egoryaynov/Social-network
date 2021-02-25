@@ -1,4 +1,4 @@
-import {useFormik} from "formik";
+import {FormikProps, useFormik} from "formik";
 import * as Yup from 'yup';
 import React from "react";
 import ErrorMessage from "../../common/ErrorMessage/ErrorMessage";
@@ -10,8 +10,15 @@ type PropsType = {
     login: (loginInfo: LoginInfoType) => void
     captchaUrl: string | null
 }
+
+type ValuesType = {
+    email: string
+    password: string
+    isRememberMe: boolean
+    captcha: null | string
+}
 const FormLogin: React.FC<PropsType> = ({login, captchaUrl}) => {
-    const formik = useFormik({
+    const formik: FormikProps<ValuesType> = useFormik<ValuesType>({
         initialValues: {
             email: '',
             password: '',

@@ -42,7 +42,7 @@ class ProfileContainer extends Component<ProfileContainerPropsType> {
         let userID: number;
 
         if (this.props.match.params.profileUserId) {
-            userID = +this.props.match.params.profileUserId
+            userID = parseInt(this.props.match.params.profileUserId)
         } else if (this.props.isAuth && this.props.authUserID) {
             userID = this.props.authUserID
         } else {
@@ -79,12 +79,13 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
 export default compose(
     withRouter,
     withAuthRedirect,
-    connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(mapStateToProps, {
-        getUserProfile,
-        getStatus,
-        updateStatus,
-        clearUserProfile,
-        savePhoto,
-        updateProfileInfo
-    })
+    connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(
+        mapStateToProps, {
+            getUserProfile,
+            getStatus,
+            updateStatus,
+            clearUserProfile,
+            savePhoto,
+            updateProfileInfo
+        })
 )(ProfileContainer)

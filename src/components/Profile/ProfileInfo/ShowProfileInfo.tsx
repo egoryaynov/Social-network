@@ -19,8 +19,7 @@ const ShowProfileInfo: React.FC<PropsType> = ({profile}) => {
                         return <div className={style.contactsWrapper}>
                             <b>{`${social}: `}</b>
 
-                            {/* @ts-ignore */}
-                            <a href={profile.contacts[social as keyof ContactsType]}
+                            <a href={profile.contacts[social as keyof ContactsType] || ''}
                                className={style.contactsItem}>{profile.contacts[social as keyof ContactsType]}</a>
                         </div>
                     })}

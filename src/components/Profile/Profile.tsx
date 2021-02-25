@@ -14,7 +14,6 @@ const Profile: React.FC<PropsType> = ({profile, status, updateStatus, authUserID
                          status={status}
                          updateStatus={updateStatus}
                          updateProfileInfo={updateProfileInfo}/>
-            {/*@ts-ignore*/}
             <PostsContainer/>
         </div>
     );

@@ -1,5 +1,5 @@
 import React from 'react';
-import {useFormik} from "formik";
+import {FormikProps, useFormik} from "formik";
 import ErrorMessage from "../../common/ErrorMessage/ErrorMessage";
 import style from "./ProfileInfo.module.scss";
 import {ContactsType, ProfileType, UpdateProfileInfoPayloadType} from "../../../types/types";
@@ -22,8 +22,16 @@ type PropsType = {
     updateProfileInfo: (profileInfo: UpdateProfileInfoPayloadType) => void
     deactivateEditMode: () => void
 }
+
+type ValuesType = {
+    aboutMe: string
+    contacts: ContactsType
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+}
 const EditProfileInfo: React.FC<PropsType> = ({profile, updateProfileInfo, deactivateEditMode}) => {
-    const formik = useFormik({
+    const formik: FormikProps<ValuesType> = useFormik<ValuesType>({
         initialValues: {
             aboutMe: profile.aboutMe,
             contacts: profile.contacts,
@@ -79,8 +87,7 @@ const EditProfileInfo: React.FC<PropsType> = ({profile, updateProfileInfo, deact
                             name={`contacts.${social}`}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            /* @ts-ignore */
-                            value={formik.values.contacts[social as keyof ContactsType]}/>
+                            value={formik.values.contacts[social as keyof ContactsType] || ''}/>
                     </div>
                 })}
             </div>

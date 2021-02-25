@@ -1,13 +1,17 @@
 import React from 'react';
-import {useFormik} from "formik";
+import {FormikProps, useFormik} from "formik";
 import ErrorMessage from "../../../common/ErrorMessage/ErrorMessage";
 import * as Yup from "yup";
 
 type PropsType = {
     addPost: (postText: string) => void
 }
+
+type ValuesType = {
+    postText: string
+}
 const PostForm: React.FC<PropsType> = ({addPost}) => {
-    const formik = useFormik({
+    const formik: FormikProps<ValuesType> = useFormik<ValuesType>({
         initialValues: {
             postText: ''
         },

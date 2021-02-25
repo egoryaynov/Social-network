@@ -13,7 +13,7 @@ import {
     getUsers
 } from "../../redux/selectors/usersSelectors";
 import {compose} from "redux";
-import {withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {UserType} from "../../types/types";
 import {AppStateType} from "../../redux/store";
 
@@ -33,9 +33,10 @@ type MapDispatchToPropsType = {
     onFollowUser: (userID: number, isFollow: boolean) => void
     requestUsers: (currentPage: number, pageSize: number) => void
 }
-type PropsType = MapStateToPropsType & MapDispatchToPropsType & {
-    match: any
+type PathParamsType = {
+    page: string
 }
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & RouteComponentProps<PathParamsType>
 
 class UsersContainer extends React.Component<PropsType> {
     componentDidMount() {

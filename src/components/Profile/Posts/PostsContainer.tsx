@@ -12,7 +12,8 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
     addPost: (postText: string) => void
 }
-type PropsType = MapStateToPropsType & MapDispatchToPropsType
+type OwnPropsType = {}
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
 
 const PostsContainer: React.FC<PropsType> = (props) => {
     return (
@@ -23,7 +24,7 @@ const PostsContainer: React.FC<PropsType> = (props) => {
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     posts: state.profilePage.posts
 })
-export default connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(
+export default connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>(
     mapStateToProps,
     {addPost}
 )(PostsContainer);
