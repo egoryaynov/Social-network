@@ -1,4 +1,4 @@
-import {profileAPI, ResultCodesEnum} from "../api/api";
+import {ResultCodesEnum} from "../api/api";
 import {
     PhotosType,
     PostType,
@@ -7,6 +7,7 @@ import {
 } from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, InferActionsTypes} from "./store";
+import {profileAPI} from "../api/profile-api";
 
 const initialState = {
     posts: [

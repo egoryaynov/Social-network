@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {actions} from '../../redux/profileReducer'
-const {clearUserProfile} = actions;
-
 import {
     getStatus,
     getUserProfile,
@@ -17,6 +15,8 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {ProfileType, UpdateProfileInfoPayloadType} from "../../types/types";
 import {AppStateType} from "../../redux/store";
+
+const {clearUserProfile} = actions;
 
 type MapStateToPropsType = {
     profile: ProfileType | null

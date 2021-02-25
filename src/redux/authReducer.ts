@@ -1,7 +1,9 @@
-import {authAPI, ResultCodesEnum, ResultCodesForCaptcha, securityAPI} from "../api/api";
+import {ResultCodesEnum, ResultCodesForCaptcha} from "../api/api";
 import {LoginInfoType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, InferActionsTypes} from "./store";
+import {securityAPI} from "../api/security-api";
+import {authAPI} from "../api/auth-api";
 
 const initialState = {
     userID: null as number | null,
