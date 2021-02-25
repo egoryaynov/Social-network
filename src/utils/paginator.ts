@@ -1,4 +1,4 @@
-export const calcShowItems = (pages, currentPage, pagesToShow) => {
+export const calcShowItems = (pages: Array<number>, currentPage: number, pagesToShow: number): Array<number> => {
     if (pages.length === 0) return [];
 
     const showPages = getShowPages(pages, currentPage, pagesToShow);
@@ -8,8 +8,8 @@ export const calcShowItems = (pages, currentPage, pagesToShow) => {
     return Array.from(new Set(result));
 }
 
-const getShowPages = (pages, currentPage, pagesToShow) => {
-    let showPages;
+const getShowPages = (pages: Array<number>, currentPage: number, pagesToShow: number): Array<number> => {
+    let showPages: Array<number>;
     if (pages.length - currentPage < pagesToShow) {
         showPages = pages.slice(-pagesToShow);
     } else {
