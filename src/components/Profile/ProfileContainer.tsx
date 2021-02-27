@@ -90,4 +90,4 @@ export default compose(
             savePhoto,
             updateProfileInfo
         })
-)(ProfileContainer)
+)(ProfileContainer) as React.ComponentType

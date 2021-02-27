@@ -25,9 +25,7 @@ let store = createStore(rootReducer,
 )
 export type AppStateType = ReturnType<typeof rootReducer>;
 
-export type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
-export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
-
+export type InferActionsTypes<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never
 export type BaseThunkType<T extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, T>
 
 export default store;

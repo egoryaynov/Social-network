@@ -75,8 +75,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 export default compose(
     withRouter,
-    connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(
         mapStateToProps,
         {requestUsers, onFollowUser}
     )
-)(UsersContainer)
+)(UsersContainer) as React.ComponentType

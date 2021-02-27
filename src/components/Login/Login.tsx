@@ -31,7 +31,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     isAuth: state.auth.isAuth,
     captchaUrl: state.auth.captchaUrl
 })
-export default connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(
     mapStateToProps,
     {login}
-)(Login);
+)(Login) as React.ComponentType;

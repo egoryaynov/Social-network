@@ -15,7 +15,8 @@ type MapStateToPropsType = {
 type MapDispatchToPropsType = {
     addMessage: (message: string) => void
 }
-type PropsType = MapStateToPropsType & MapDispatchToPropsType
+type OwnPropsType = {}
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
 
 const DialogsContainer: React.FC<PropsType> = ({dialogs, messages, addMessage}) => {
     return (
@@ -25,7 +26,7 @@ const DialogsContainer: React.FC<PropsType> = ({dialogs, messages, addMessage}) 
     );
 };
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages
@@ -33,7 +34,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 export default compose(
     withAuthRedirect,
-    connect<MapStateToPropsType, MapDispatchToPropsType, null, AppStateType>(
+    connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>(
         mapStateToProps, {addMessage}
     )
-)(DialogsContainer)
+)(DialogsContainer) as React.ComponentType
