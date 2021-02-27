@@ -8,6 +8,8 @@ import Preloader from "../common/Preloader/Preloader";
 import styles from './Users.module.scss';
 
 import {UserType} from "../../types/types";
+import SearchForm from "./SearchForm/SearchForm";
+import {requestUsersType} from "./types";
 
 type PropsType = {
     users: Array<UserType>
@@ -20,11 +22,12 @@ type PropsType = {
 
     onFollowUser: (userID: number, isFollow: boolean) => void
     onChangePage: (pageNumber: number) => void
+    onSearch: (newTerm: string) => void
 }
 const Users: React.FC<PropsType> = ({
                                         users, totalUsersCount, pageSize, currentPage,
                                         onChangePage, isFollowsFetching, isFetching, onFollowUser,
-                                        pagesToShow
+                                        pagesToShow, onSearch
                                     }) => {
     let onFollow = (userID: number, isFollow: boolean) => {
         onFollowUser(userID, isFollow)
@@ -40,6 +43,8 @@ const Users: React.FC<PropsType> = ({
                        pagesToShow={pagesToShow}
             />
             {isFetching ? <Preloader/> : null}
+
+            <SearchForm onSearch={onSearch} currentPage={currentPage} pageSize={pageSize}/>
 
             <div className={isFetching ? "hide" : ''}>
                 <ul>

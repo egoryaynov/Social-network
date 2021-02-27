@@ -44,6 +44,7 @@ const Paginator: React.FC<PropsType> = ({
             <div className={style.paginatorWrapper}>
                 {showItems.map((page) => (
                     <span
+                        key={page}
                         className={currentPage === page
                             ? `${style.paginatorItem} ${style.paginatorItemActive}`
                             : `${style.paginatorItem}`}

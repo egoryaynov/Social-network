@@ -14,6 +14,7 @@ import {compose} from "redux";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {UserType} from "../../types/types";
 import {AppStateType} from "../../redux/store";
+import {requestUsersType} from "./types";
 
 type MapStateToPropsType = {
     users: Array<UserType>
@@ -26,7 +27,7 @@ type MapStateToPropsType = {
 }
 type MapDispatchToPropsType = {
     onFollowUser: (userID: number, isFollow: boolean) => void
-    requestUsers: (currentPage: number, pageSize: number) => void
+    requestUsers: requestUsersType
 }
 type PathParamsType = {
     page: string
@@ -40,22 +41,22 @@ class UsersContainer extends React.Component<PropsType> {
         this.props.requestUsers(page, this.props.pageSize);
     }
 
+    state = {
+        term: null
+    }
+
     onChangePage = (page: number) => {
-        this.props.requestUsers(page, this.props.pageSize);
+        this.props.requestUsers(page, this.props.pageSize, this.state.term);
+    }
+    onSearch = (newTerm: string) => {
+        this.setState({
+            term: newTerm
+        })
     }
 
     render() {
         return (
-            <Users users={this.props.users}
-                   onChangePage={this.onChangePage}
-                   totalUsersCount={this.props.totalUsersCount}
-                   pageSize={this.props.pageSize}
-                   currentPage={this.props.currentPage}
-                   isFetching={this.props.isFetching}
-                   isFollowsFetching={this.props.isFollowsFetching}
-                   pagesToShow={this.props.pagesToShow}
-                   onFollowUser={this.props.onFollowUser}
-            />
+            <Users  {...this.props} onChangePage={this.onChangePage} onSearch={this.onSearch}/>
         )
     }
 
