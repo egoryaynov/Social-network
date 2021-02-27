@@ -41,18 +41,20 @@ export type ProfileContainerPropsType = MapStateToPropsType & MapDispatchToProps
 
 class ProfileContainer extends Component<ProfileContainerPropsType> {
     componentDidMount() {
-        let userID: number;
+        let userID: number | null = null;
 
         if (this.props.match.params.profileUserId) {
             userID = parseInt(this.props.match.params.profileUserId)
         } else if (this.props.isAuth && this.props.authUserID) {
             userID = this.props.authUserID
-        } else {
-            userID = 10;
         }
 
-        this.props.getUserProfile(userID)
-        this.props.getStatus(userID)
+        if (!userID) {
+            console.error("ID should exists in URI params or in state")
+        } else {
+            this.props.getUserProfile(userID as number)
+            this.props.getStatus(userID as number)
+        }
     }
 
     componentWillUnmount() {

@@ -2,7 +2,8 @@ import {calcShowItems} from "./paginator";
 
 describe("Validate utilities for paginator", () => {
     const pagesToShow = 20;
-    const pages = [];
+    const pages: Array<number> = [];
+
     for (let i = 1; i < 100; i++) {
         pages.push(i);
     }

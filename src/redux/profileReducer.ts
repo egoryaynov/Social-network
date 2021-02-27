@@ -21,7 +21,7 @@ const initialState = {
     status: ''
 }
 
-const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+export const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case 'profile/ADD_POST': {
             let newPostText = action.postText;
