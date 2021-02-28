@@ -102,6 +102,13 @@ export const actions = {
     } as const)
 }
 
+export const onChangeFilterThunk: typeof requestUsers = (page, pageSize, filter): ThunkType => {
+    return async (dispatch) => {
+        await dispatch(actions.changeSearchFilter(filter));
+        await dispatch(requestUsers(page, pageSize, filter));
+    }
+}
+
 export const requestUsers = (page: number, pageSize: number, filter: FilterType): ThunkType => {
     return async (dispatch) => {
         dispatch(actions.toggleIsFetching(true));

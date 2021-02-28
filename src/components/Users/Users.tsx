@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, useRouteMatch} from "react-router-dom";
 
 import defaultUserAvatar from "../../assets/default-user-avatar.jpg";
 import Paginator from "../common/Paginator/Paginator";
@@ -7,29 +7,56 @@ import Preloader from "../common/Preloader/Preloader";
 
 import styles from './Users.module.scss';
 
-import {FilterType, UserType} from "../../types/types";
+import {FilterType} from "../../types/types";
 import SearchForm from "./SearchForm/SearchForm";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    getCurrentPage, getIsFetching, getIsFollowsFetching,
+    getPageSize, getPagesToShow,
+    getSearchFilter,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/selectors/usersSelectors";
+import {onChangeFilterThunk, onFollowUser, requestUsers} from '../../redux/usersReducer';
 
-type PropsType = {
-    users: Array<UserType>
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    pagesToShow: number
-    isFollowsFetching: Array<number>
-    isFetching: boolean
+import {actions} from '../../redux/usersReducer'
 
-    onFollowUser: (userID: number, isFollow: boolean) => void
-    onChangePage: (pageNumber: number) => void
-    onChangeFilter: (filter: FilterType) => void
-}
-const Users: React.FC<PropsType> = ({
-                                        users, totalUsersCount, pageSize, currentPage,
-                                        onChangePage, isFollowsFetching, isFetching, onFollowUser,
-                                        pagesToShow, onChangeFilter
-                                    }) => {
+const Users: React.FC = () => {
+    const users = useSelector(getUsers);
+    const totalUsersCount = useSelector(getTotalUsersCount);
+    const pageSize = useSelector(getPageSize);
+    const currentPage = useSelector(getCurrentPage);
+    const searchFilter = useSelector(getSearchFilter);
+    const isFollowsFetching = useSelector(getIsFollowsFetching);
+    const isFetching = useSelector(getIsFetching);
+    const pagesToShow = useSelector(getPagesToShow);
+
+    const dispatch = useDispatch();
+
+    const route = useRouteMatch<{ page?: string }>()
+
+    React.useEffect(() => {
+        const page = parseInt(route.params.page as string) || 1;
+        makeRequestUsers(page);
+
+        return () => {
+            dispatch(actions.changeSearchFilter({friend: null, term: null}))
+        }
+    }, [])
+
     let onFollow = (userID: number, isFollow: boolean) => {
-        onFollowUser(userID, isFollow)
+        dispatch(onFollowUser(userID, isFollow))
+    }
+
+    const makeRequestUsers = (page: number = currentPage) => {
+        dispatch(requestUsers(page, pageSize, searchFilter));
+    }
+
+    const onChangePage = (page: number) => {
+        makeRequestUsers(page)
+    }
+    const onChangeFilter = (filter: FilterType) => {
+        dispatch(onChangeFilterThunk(1, pageSize, filter))
     }
 
     return (
