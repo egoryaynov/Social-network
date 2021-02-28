@@ -63,3 +63,8 @@ export type UpdateProfileInfoPayloadType = {
     aboutMe?: string
     contacts: ContactsType
 }
+
+export type FilterType = {
+    term: null | string
+    friend: null | boolean
+}

@@ -14,6 +14,10 @@ export const getPagesToShow = (state: AppStateType) => {
     return state.usersPage.pagesToShow
 }
 
+export const getSearchFilter = (state: AppStateType) => {
+    return state.usersPage.searchFilter
+}
+
 export const getTotalUsersCount = (state: AppStateType) => {
     return state.usersPage.totalUsersCount
 }

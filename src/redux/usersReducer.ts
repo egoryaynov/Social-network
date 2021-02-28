@@ -1,7 +1,8 @@
 import {UserType} from "../types/types";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, BaseThunkType, InferActionsTypes} from "./store";
+import {BaseThunkType, InferActionsTypes} from "./store";
 import {usersAPI} from "../api/users-api";
+
+import {FilterType} from '../types/types'
 
 const initialState = {
     users: [] as Array<UserType>,
@@ -10,7 +11,11 @@ const initialState = {
     currentPage: 1,
     isFetching: false,
     isFollowsFetching: [] as Array<number>, // array of users id's
-    pagesToShow: 19
+    pagesToShow: 19,
+    searchFilter: {
+        friend: null,
+        term: null
+    } as FilterType
 }
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialState => {
@@ -57,12 +62,18 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialState 
                     : state.isFollowsFetching.filter(id => action.userID !== id)
             }
         }
+        case "users/CHANGE_SEARCH_FILTER": {
+            return {
+                ...state,
+                searchFilter: action.filter
+            }
+        }
         default:
             return state
     }
 }
 
-const actions = {
+export const actions = {
     followToggle: (userID: number) => ({
         type: 'users/FOLLOW_TOGGLE',
         userID
@@ -84,14 +95,21 @@ const actions = {
         type: 'users/TOGGLE_FOLLOW_FETCHING',
         isFetching,
         userID
+    } as const),
+    changeSearchFilter: (filter: FilterType) => ({
+        type: 'users/CHANGE_SEARCH_FILTER',
+        filter
     } as const)
 }
 
-export const requestUsers = (page: number, pageSize: number, term: string | null = null): ThunkType => {
+export const requestUsers = (page: number, pageSize: number, filter: FilterType): ThunkType => {
     return async (dispatch) => {
         dispatch(actions.toggleIsFetching(true));
 
-        let data = await usersAPI.getUsers(page, pageSize, term)
+        const termUri = !filter.term ? '' : `&term=${filter.term}`
+        const friendUri = filter.friend == null ? '' : `&friend=${filter.friend}`
+
+        let data = await usersAPI.getUsers(page, pageSize, termUri, friendUri)
 
         dispatch(actions.setCurrentPage(page))
         dispatch(actions.toggleIsFetching(false));

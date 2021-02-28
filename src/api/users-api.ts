@@ -7,9 +7,9 @@ type GetUsersResponse = {
     error: string
 }
 export const usersAPI = {
-    getUsers: (page: number, pageSize: number, term: string | null) => {
-        const termUri = !term ? '' : `&term=${term}`
-        return instance.get<GetUsersResponse>(`users?page=${page}&count=${pageSize}${termUri}`).then(response => response.data)
+    getUsers: (page: number, pageSize: number, termUri: string, friendUri: string) => {
+        return instance.get<GetUsersResponse>(`users?page=${page}&count=${pageSize}${termUri}${friendUri}`)
+            .then(response => response.data)
     },
     deleteFollow: (userID: number) => {
         return instance.delete<ResponseType>(`follow/${userID}`)
