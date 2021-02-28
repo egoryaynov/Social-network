@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink, useRouteMatch} from "react-router-dom";
+import {NavLink, useHistory, useParams} from "react-router-dom";
 
 import defaultUserAvatar from "../../assets/default-user-avatar.jpg";
 import Paginator from "../common/Paginator/Paginator";
@@ -17,7 +17,9 @@ import {
     getTotalUsersCount,
     getUsers
 } from "../../redux/selectors/usersSelectors";
-import {onChangeFilterThunk, onFollowUser, requestUsers} from '../../redux/usersReducer';
+import {onFollowUser, requestUsers} from '../../redux/usersReducer';
+
+import {parse as queryStringParse} from 'querystring';
 
 import {actions} from '../../redux/usersReducer'
 
@@ -33,30 +35,56 @@ const Users: React.FC = () => {
 
     const dispatch = useDispatch();
 
-    const route = useRouteMatch<{ page?: string }>()
+    const history = useHistory();
 
     React.useEffect(() => {
-        const page = parseInt(route.params.page as string) || 1;
-        makeRequestUsers(page);
+        const parsed: { term?: string, friend?: boolean, page?: number } = queryStringParse(history.location.search.substring(1))
+
+        const filter = {
+            term: parsed.term || null,
+            friend: parsed.friend || null
+        } as FilterType
+        const page = parsed.page || currentPage;
+
+        makeRequestUsers(page, filter)
 
         return () => {
             dispatch(actions.changeSearchFilter({friend: null, term: null}))
         }
     }, [])
 
+    React.useEffect(() => {
+        let search = '';
+
+        if (searchFilter.term !== null && String(searchFilter.term).length > 0) {
+            search += `&term=${searchFilter.term}`
+        }
+        if (searchFilter.friend !== null) {
+            search += `&friend=${searchFilter.friend}`
+        }
+        if (currentPage !== 1) {
+            search += `&page=${currentPage}`;
+        }
+
+        history.push({
+            pathname: 'users',
+            search
+        })
+    }, [searchFilter, currentPage])
+
     let onFollow = (userID: number, isFollow: boolean) => {
         dispatch(onFollowUser(userID, isFollow))
     }
 
-    const makeRequestUsers = (page: number = currentPage) => {
-        dispatch(requestUsers(page, pageSize, searchFilter));
+    const makeRequestUsers = (page: number = currentPage, filter: FilterType = searchFilter) => {
+        dispatch(requestUsers(page, pageSize, filter));
     }
 
     const onChangePage = (page: number) => {
         makeRequestUsers(page)
     }
     const onChangeFilter = (filter: FilterType) => {
-        dispatch(onChangeFilterThunk(1, pageSize, filter))
+        makeRequestUsers(undefined, filter)
     }
 
     return (
@@ -70,9 +98,8 @@ const Users: React.FC = () => {
             />
             {isFetching ? <Preloader/> : null}
 
-            <SearchForm onChangeFilter={onChangeFilter}/>
-
             <div className={isFetching ? "hide" : ''}>
+                <SearchForm onChangeFilter={onChangeFilter}/>
                 <ul>
                     {users.map(user => {
                         return (

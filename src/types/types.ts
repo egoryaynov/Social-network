@@ -66,5 +66,5 @@ export type UpdateProfileInfoPayloadType = {
 
 export type FilterType = {
     term: null | string
-    friend: null | boolean
+    friend: null | string
 }

@@ -3,6 +3,8 @@ import styles from '../Users.module.scss';
 import {FormikProps, useFormik} from "formik";
 import {debounce} from 'lodash';
 import {FilterType} from "../../../types/types";
+import {useSelector} from "react-redux";
+import {getSearchFilter} from "../../../redux/selectors/usersSelectors";
 
 type ValuesType = {
     term: string
@@ -12,32 +14,20 @@ type PropsType = {
     onChangeFilter: (filter: FilterType) => void
 }
 
-const prepareFriendForRequest: (friend: string) => boolean | null = (friend) => {
-    switch (friend) {
-        case "all":
-            return null;
-        case "true":
-            return true
-        case "false":
-            return false;
-        default:
-            return null
-    }
-}
-
 const SearchForm: React.FC<PropsType> = React.memo(({onChangeFilter}) => {
     const searchRef = React.createRef<HTMLInputElement>();
+    const searchFilter = useSelector(getSearchFilter);
 
     const formik: FormikProps<ValuesType> = useFormik<ValuesType>({
         initialValues: {
-            term: '',
-            friend: "all"
+            term: searchFilter.term || '',
+            friend: (searchFilter.friend ? searchFilter.friend : "all") as "all" | "true" | "false"
         },
+        enableReinitialize: true,
         onSubmit: (values) => {
             const termForRequest = values.term.trim().length > 0 ? values.term : null
-            const friendForRequest: boolean | null = prepareFriendForRequest(values.friend)
 
-            onChangeFilter({term: termForRequest, friend: friendForRequest});
+            onChangeFilter({term: termForRequest, friend: values.friend === "all" ? null : values.friend});
         }
     });
 

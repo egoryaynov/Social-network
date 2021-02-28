@@ -102,21 +102,15 @@ export const actions = {
     } as const)
 }
 
-export const onChangeFilterThunk: typeof requestUsers = (page, pageSize, filter): ThunkType => {
-    return async (dispatch) => {
-        await dispatch(actions.changeSearchFilter(filter));
-        await dispatch(requestUsers(page, pageSize, filter));
-    }
-}
-
 export const requestUsers = (page: number, pageSize: number, filter: FilterType): ThunkType => {
     return async (dispatch) => {
         dispatch(actions.toggleIsFetching(true));
+        dispatch(actions.changeSearchFilter(filter))
 
-        const termUri = !filter.term ? '' : `&term=${filter.term}`
-        const friendUri = filter.friend == null ? '' : `&friend=${filter.friend}`
+        const termParam = !filter.term ? '' : `&term=${filter.term}`
+        const friendParam = filter.friend === null ? '' : `&friend=${filter.friend}`
 
-        let data = await usersAPI.getUsers(page, pageSize, termUri, friendUri)
+        let data = await usersAPI.getUsers(page, pageSize, termParam, friendParam)
 
         dispatch(actions.setCurrentPage(page))
         dispatch(actions.toggleIsFetching(false));
