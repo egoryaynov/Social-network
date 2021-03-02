@@ -27,7 +27,10 @@ const SearchForm: React.FC<PropsType> = React.memo(({onChangeFilter}) => {
         onSubmit: (values) => {
             const termForRequest = values.term.trim().length > 0 ? values.term : null
 
-            onChangeFilter({term: termForRequest, friend: values.friend === "all" ? null : values.friend});
+            onChangeFilter({
+                term: termForRequest,
+                friend: values.friend === "all" ? null : values.friend
+            });
         }
     });
 

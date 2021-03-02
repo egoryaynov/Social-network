@@ -96,7 +96,7 @@ export const actions = {
         isFetching,
         userID
     } as const),
-    changeSearchFilter: (filter: FilterType) => ({
+    changeSearchFilter:     (filter: FilterType) => ({
         type: 'users/CHANGE_SEARCH_FILTER',
         filter
     } as const)
