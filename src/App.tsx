@@ -1,8 +1,6 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
-import HeaderContainer from "./components/Header/HeaderContainer";
-import Aside from "./components/Aside/Aside";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -15,10 +13,13 @@ import Preloader from "./components/common/Preloader/Preloader";
 import {withSuspense} from "./hoc/withSuspense";
 import PageNotFound from "./components/common/PageNotFound/PageNotFound";
 import {getInitialized} from "./redux/selectors/appSelectors";
+import Header from './components/Header/Header';
+import {Container} from "@material-ui/core";
 
 let ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
-
+let ChatPage = React.lazy(() => import('./pages/ChatPage/ChatPage'));
 const SuspendedProfile = withSuspense(ProfileContainer);
+const SuspendedChatPage = withSuspense(ChatPage);
 
 const App: React.FC = () => {
     const initialized = useSelector(getInitialized)
@@ -36,10 +37,8 @@ const App: React.FC = () => {
 
     return (
         <div>
-            <HeaderContainer/>
-            <div className="content-wrapper">
-                <Aside/>
-
+            <Header/>
+            <Container style={{marginTop: '25px'}}>
                 <Switch>
                     <Redirect exact from='/' to='/profile'/>
 
@@ -55,13 +54,16 @@ const App: React.FC = () => {
                     <Route path='/users/:page?' render={() =>
                         <UsersContainer/>
                     }/>
+                    <Route path='/chat' render={() =>
+                        <SuspendedChatPage/>
+                    }/>
                     <Route path='/login' render={() =>
                         <Login/>
                     }/>
 
                     <Route path='' render={() => <PageNotFound/>}/>
                 </Switch>
-            </div>
+            </Container>
         </div>
     );
 }

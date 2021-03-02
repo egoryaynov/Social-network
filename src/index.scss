@@ -26,12 +26,8 @@ textarea {
   display: block;
 }
 
-.content-wrapper {
-  margin-top: 10px;
-  margin-right: 15px;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: 1fr 4fr;
+.container {
+  margin-top: 20px;
 }
 
 .hide {

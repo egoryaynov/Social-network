@@ -1,43 +1,64 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 
-import './Header.scss';
+import styles from './Header.module.scss';
 
-import logo from '../../assets/logo.png';
+import {useDispatch, useSelector} from "react-redux";
+import {getIsAuth, getLogin} from '../../redux/selectors/headerSelectors';
+import {logout} from '../../redux/authReducer';
+import {AppBar, Avatar, Container} from '@material-ui/core';
+import {Toolbar} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import {Typography} from '@material-ui/core';
+import {Grid} from '@material-ui/core';
 
-type PropsHeaderType = {
-    isAuth: boolean
-    login: string | null
-    logout: () => void
-}
-const Header: React.FC<PropsHeaderType> = ({isAuth, login, logout}) => {
+const Header: React.FC = () => {
+    const isAuth = useSelector(getIsAuth);
+    const login = useSelector(getLogin);
+    const dispatch = useDispatch()
+
+    const onLogout = () => {
+        dispatch(logout())
+    }
+
     return (
-        <header className='header'>
-            <div className="header__logo-wrapper">
-                <NavLink className="header__logo-link" to="/profile">
-                    <img className='header__logo' src={logo} alt="logotype"/>
-                </NavLink>
-            </div>
-            <div className="header__login">
-                {isAuth
-                    ? <Logged login={login} logout={logout}/>
-                    : <NavLink to='/login'>Login</NavLink>}
-            </div>
-        </header>
-    );
-};
-
-type PropsLoggedType = {
-    login: string | null
-    logout: () => void
-}
-const Logged: React.FC<PropsLoggedType> = ({login, logout}) => {
-    return (
-        <div>
-            <span className='header__login-name'>{`You login as ${login}`}</span>
-            <button type='button' onClick={logout}>Logout</button>
-        </div>
+        <AppBar position="static">
+            <Container>
+                <Grid container justify="space-between">
+                    <Grid className={styles.navigation}>
+                        <Button><NavLink to='/profile'>Profile</NavLink></Button>
+                        <Button><NavLink to='/dialogs'>Dialogs</NavLink></Button>
+                        <Button><NavLink to='/news'>News</NavLink></Button>
+                        <Button><NavLink to='/music'>Music</NavLink></Button>
+                        <Button><NavLink to='/settings'>Settings</NavLink></Button>
+                        <Button><NavLink to='/users'>Users</NavLink></Button>
+                        <Button><NavLink to='/chat'>Chat</NavLink></Button>
+                    </Grid>
+                    <Toolbar>
+                        <Grid container alignItems='center'>
+                            {isAuth
+                                ? <>
+                                    <Avatar>{login?.substring(0, 1)}</Avatar>
+                                    <Typography className={styles.login}>{login}</Typography>
+                                    <Button color="secondary" onClick={onLogout}>
+                                        <Typography style={{color: '#ff0000'}}>
+                                            Logout
+                                        </Typography>
+                                    </Button>
+                                </>
+                                : <Button>
+                                    <NavLink to='/login'>
+                                        <Typography style={{color: '#ffffff'}}>
+                                            <NavLink style={{color: 'inherit'}} to="/login">Login</NavLink>
+                                        </Typography>
+                                    </NavLink>
+                                </Button>
+                            }
+                        </Grid>
+                    </Toolbar>
+                </Grid>
+            </Container>
+        </AppBar>
     )
-}
-
+};
 export default Header;
