@@ -6,6 +6,7 @@ import usersReducer from "./usersReducer";
 import authReducer from "./authReducer";
 import thunkMiddleware, {ThunkAction} from 'redux-thunk';
 import appReducer from "./appReducer";
+import chatReducer from "./chatReducer";
 
 let rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
@@ -13,7 +14,8 @@ let rootReducer = combineReducers({
     sideBar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    app: appReducer
+    app: appReducer,
+    chat: chatReducer
 });
 
 let store = createStore(rootReducer,
