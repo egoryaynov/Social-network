@@ -5,9 +5,11 @@ import {useFormik} from "formik";
 import SendIcon from '@material-ui/icons/Send';
 import {useDispatch, useSelector} from "react-redux";
 import {sendMessage, startMessagesListening, stopMessagesListening} from "../../redux/chatReducer";
-import {getMessages} from "../../redux/selectors/chatSelectors";
+import {getMessages, getStatus} from "../../redux/selectors/chatSelectors";
+import {ChatStatusType} from "../../api/chat-api";
 
 const ChatPage = () => {
+    const status = useSelector(getStatus);
     const dispatch = useDispatch()
 
     React.useEffect(() => {
@@ -19,13 +21,13 @@ const ChatPage = () => {
 
     return (
         <>
-            <Messages/>
-            <ChatForm/>
+            <Messages status={status}/>
+            <ChatForm status={status}/>
         </>
     );
 };
 
-const Messages: React.FC = () => {
+const Messages: React.FC<{ status: ChatStatusType }> = ({status}) => {
     const messages = useSelector(getMessages)
 
     return (
@@ -41,11 +43,14 @@ const Messages: React.FC = () => {
             })}
 
             {messages.length === 0 && <Typography>Сообщений нету</Typography>}
+            {status === 'error' && messages.length === 0 &&
+            <Typography style={{color: 'red'}}>Невозможно установить соединение, пожалуйста, перезагрузите
+                страницу</Typography>}
         </Grid>
     )
 }
 
-const ChatForm: React.FC = () => {
+const ChatForm: React.FC<{ status: ChatStatusType }> = ({status}) => {
     const dispatch = useDispatch()
 
     const formik = useFormik<{ message: string }>({
@@ -70,7 +75,7 @@ const ChatForm: React.FC = () => {
                 style={{resize: 'none', width: '90%', height: 50, fontSize: '22px', outline: 'none'}}
                 onChange={formik.handleChange}
                 value={formik.values.message}/>
-            <Button disabled={false} style={{flex: 1}} color="primary"
+            <Button disabled={status !== 'ready'} style={{flex: 1}} color="primary"
                     onClick={formik.submitForm}>
                 Submit <SendIcon/>
             </Button>

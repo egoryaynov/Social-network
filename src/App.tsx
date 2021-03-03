@@ -30,6 +30,11 @@ const App: React.FC = () => {
             dispatch(initialize())
         }
 
+        window.addEventListener('unhandledrejection', function (event) {
+            console.error('Unhandled rejection (promise: ', event.promise, ', reason: ', event.reason, ').');
+            document.location.assign('http://localhost:3000/404')
+        });
+
         init()
     }, [])
 
@@ -61,7 +66,7 @@ const App: React.FC = () => {
                         <Login/>
                     }/>
 
-                    <Route path='' render={() => <PageNotFound/>}/>
+                    <Route render={() => <PageNotFound/>}/>
                 </Switch>
             </Container>
         </div>
