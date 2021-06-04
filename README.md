@@ -2,7 +2,6 @@
 
 1. [About project](#about)
 1. [Technologies](#technologies)
-1. [Contacts](#contacts)
 
 ------------
 
@@ -28,12 +27,3 @@ implemented **authorization** (you can login and logout)
 * **Jest**
 * **SCSS**
 * **CSS Modules**
-
-------------
-
-## <a name="contacts">Contacts</a>
-
-contacts for communication:
-> **telegram:** <a href="https://t.me/egoryaynov">@egoryaynov</a>
->
-> **email:** <a href="mailto:egor.goryaynov02@gmail.com">egor.goryaynov02@gmail.com</a>
